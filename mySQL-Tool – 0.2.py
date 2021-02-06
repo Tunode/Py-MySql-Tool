@@ -14,7 +14,6 @@ class mysql_tool:
 			"dbname": db_name
 		}
 
-
 	def db_connector_new(self):#Connects mysql without DB name: (this is for gen_db functionality) -> done
 		self.DB = mysql.connector.connect(
 			host = self.db_info["host_ip"],
@@ -30,25 +29,25 @@ class mysql_tool:
 			database = self.db_info["dbname"]
 			)
 
-	def close_connet(self):
+	def close_connet(self):#Simply closes DB Connection -> Done
 		self.DB.close()
 
-	def gen_db(self): #Create Database -> 50%?
+	def gen_db(self): #Create Database -> Done
 		self.db_connector_new()
 		DBCursor = self.DB.cursor()
 		DBCursor.execute("CREATE DATABASE "+ self.db_info["dbname"])
 		self.close_connet()
 
-	def gen_table(self, tablename): #Create Table with DataID column -> 50%?
+	def gen_table(self, tablename): #Create Table with DataID column -> Done
+		self.db_connector()
 		DBCursor = self.DB.cursor()
 		DBCursor.execute("CREATE TABLE "+ tablename +"(dataID int PRIMARY KEY AUTO_INCREMENT)")
+		self.close_connet()
 
 	def add_column(self): #Add Column in selected exsisting Table.
 		pass
 
 DBTool = mysql_tool()
 
-#DBTool.gen_db(localhost)
-#DBTool.gen_table("localhost","root","root","newdb","newtable", "columnname")
 DBTool.ask_db_info()
-DBTool.gen_db()
+DBTool.gen_table("DBtool_table")
