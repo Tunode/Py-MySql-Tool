@@ -47,11 +47,11 @@ class mysql_tool:
 	def add_column(self): #Add Column in selected exsisting Table.
 		self.db_connector()
 		DBCursor = self.DB.cursor()
-		table_name = "users "
-		column_name = "username "
-		column_type = "VARCHAR(255) "
-		DBCursor.execute("CREATE TABLE IF NOT EXISTS "+ table_name +(column_name + column_type))
-		#DBCursor.execute("CREATE TABLE IF NOT EXISTS "+ tablename +(column_name + column_type))
+		table_name = "data1"
+		column_name = "username"
+		column_type = "VARCHAR(255)"
+		#DBCursor.execute("CREATE TABLE users (name varchar(255)))")
+		DBCursor.execute("CREATE TABLE " + table_name + "(" + column_name + " VARCHAR(255))")
 		self.close_connection()
 
 DBTool = mysql_tool()
