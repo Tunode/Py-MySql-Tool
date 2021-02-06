@@ -29,25 +29,34 @@ class mysql_tool:
 			database = self.db_info["dbname"]
 			)
 
-	def close_connet(self):#Simply closes DB Connection -> Done
+	def close_connection(self):#Simply closes DB Connection -> Done
 		self.DB.close()
 
 	def gen_db(self): #Create Database -> Done
 		self.db_connector_new()
 		DBCursor = self.DB.cursor()
 		DBCursor.execute("CREATE DATABASE "+ self.db_info["dbname"])
-		self.close_connet()
+		self.close_connection()
 
 	def gen_table(self, tablename): #Create Table with DataID column -> Done
 		self.db_connector()
 		DBCursor = self.DB.cursor()
-		DBCursor.execute("CREATE TABLE "+ tablename +"(dataID int PRIMARY KEY AUTO_INCREMENT)")
-		self.close_connet()
+		DBCursor.execute("CREATE TABLE IF NOT EXISTS "+ tablename +"(dataID int PRIMARY KEY AUTO_INCREMENT)")
+		self.close_connection()
 
 	def add_column(self): #Add Column in selected exsisting Table.
-		pass
+		self.db_connector()
+		DBCursor = self.DB.cursor()
+		table_name = "users "
+		column_name = "username "
+		column_type = "VARCHAR(255) "
+		DBCursor.execute("CREATE TABLE IF NOT EXISTS "+ table_name +(column_name + column_type))
+		#DBCursor.execute("CREATE TABLE IF NOT EXISTS "+ tablename +(column_name + column_type))
+		self.close_connection()
 
 DBTool = mysql_tool()
 
 DBTool.ask_db_info()
-DBTool.gen_table("DBtool_table")
+#DBTool.gen_db()
+#DBTool.gen_table("user_data")
+DBTool.add_column()
