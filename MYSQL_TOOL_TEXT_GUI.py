@@ -8,7 +8,7 @@ db_tool = mysql_tool()
 
 class textgui: #OOP of text gui:
 
-	def now_time_date(self):
+	def now_time_date(self): #Returns string witch includes date and time when it called.
 		now = datetime.now()
 		dt_string = now.strftime("%d/%m/%Y %H:%M")
 		return dt_string 	
@@ -17,7 +17,7 @@ class textgui: #OOP of text gui:
 		while True:
 			print("-"*20)
 			print("- MSQL Server is local? -")
-			local = input("-| y or n?: ")
+			local = input("-| yes or no: ")
 			if local == "y" or local == "yes":
 				mysql_ip = "localhost"
 				return mysql_ip
@@ -25,7 +25,6 @@ class textgui: #OOP of text gui:
 			if local == "n" or local == "no":
 				print("-"*20)
 				mysql_ip = input("MSQL Server IP?: ")
-				print("-"*20)
 				return mysql_ip
 				break
 			else:
@@ -72,7 +71,13 @@ class textgui: #OOP of text gui:
 				else:
 					print("-"*20)
 					print("- Wrong input! -")
-					print("- Please try again. -") 
+					print("- Please try again. -")
+
+	def name_for_db(self): #Ask's what name user want's to set for new database.
+			print("-"*20)
+			print("- What name you want for new database? -")
+			new_db_name = input("-| Name: ")
+
 
  #- Note's to dev's ---
  # To acsess dictionary: 
@@ -84,5 +89,5 @@ class textgui: #OOP of text gui:
 #- The Code it self: ---
 mstg = textgui()
 #---
-#print(mstg.ask_if_local())
+mstg.ask_if_local()
 mstg.ask_if_new()
