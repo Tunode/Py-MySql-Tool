@@ -48,6 +48,7 @@ class textgui: #OOP of text gui:
 						"sql_password": mysql_password,
 						"sql_time_now": self.now_time_date()
 					}
+				#print(len(mysql_loggin_data))
 					return mysql_loggin_data
 					break
 
@@ -66,6 +67,7 @@ class textgui: #OOP of text gui:
 						"sql_database": mysql_database_name,
 						"sql_time_now": self.now_time_date()
 					}
+				#print(len(mysql_loggin_data))
 					return mysql_loggin_data
 					break
 				else:
@@ -77,6 +79,7 @@ class textgui: #OOP of text gui:
 			print("-"*20)
 			print("- What name you want for new database? -")
 			new_db_name = input("-| Name: ")
+			return new_db_name
 
 
  #- Note's to dev's ---
@@ -89,5 +92,9 @@ class textgui: #OOP of text gui:
 #- The Code it self: ---
 mstg = textgui()
 #---
-mstg.ask_if_local()
-mstg.ask_if_new()
+
+while True:
+	if mstg.main_menu() == "connect_MYSQL"
+		mstg.ask_if_local()
+		if len(mstg.ask_if_new()) == 3
+			mstg.name_for_db()
