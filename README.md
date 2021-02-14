@@ -2,12 +2,9 @@
 This makes you daily python mysql tasks x 10 times easier.
 IN Progress!
 --------------------------------------------------------------
-Text in is just started -> 15% | Filename: MYSQL_TOOL_GUI.py
+Text GUI -> 10% | Filename: MYSQL_TOOL_GUI.py (old) -> New: mysql-gui-2.py
 
-so far this Text Gui can do following tasks:
-  - Ask if user is connecting to local MYSQL sercer or with ip (auomaticly uses localhost if you select local)
-  - Ask if user is connecting to new (creating database) or exsisting one.
-  - Asks name for new database. (in progress)
+Restarted.
 
 -------------------------------------------------------------
 The basemodule is done about -> 85% |  filename: mysqltool1.py
