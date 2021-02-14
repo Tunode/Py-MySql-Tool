@@ -81,6 +81,8 @@ class textgui: #OOP of text gui:
 			new_db_name = input("-| Name: ")
 			return new_db_name
 
+	def main_menu(self):
+		pass
 
  #- Note's to dev's ---
  # To acsess dictionary: 
@@ -94,7 +96,7 @@ mstg = textgui()
 #---
 
 while True:
-	if mstg.main_menu() == "connect_MYSQL"
+	if mstg.main_menu() == "connect_MYSQL":
 		mstg.ask_if_local()
-		if len(mstg.ask_if_new()) == 3
+		if len(mstg.ask_if_new()) == 3:
 			mstg.name_for_db()
