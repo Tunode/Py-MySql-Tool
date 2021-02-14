@@ -1,3 +1,4 @@
+import mysqltool1
 import os
 
 class gui:
@@ -60,14 +61,21 @@ class gui:
 		self.os_fix()
 		print("-- MYSQL_TOOL_0.2 --")
 		print("")
-		self.n_db_name = input("New database name: ")
-		#ADD Functionality here.
+		print("- 1 -| Add table ")
+		print("- 2 -| Add Column ")
+		print("- 3 -| Remove Table ")
+		print("- 4 -| Remove Column ")
+		print("- 5 -| Close ")
+		print("")
+		mm_select = input("- Valinta - |")
 		self.os_fix()
+		return int(mm_select)
 
 	def db_list(self):
 		print("-- MYSQL_TOOL_0.2 --")
 		print("")
 		#ADD Functionality here.
+		db_list=""
 		print("DB List:"+db_list)
 		self.os_fix()
 
@@ -112,38 +120,35 @@ class gui:
 		self.os_fix()
 		print("-- MYSQL_TOOL_0.2 --")
 		print("")
-		print("- 1 -| Altter existing DB? ")
-		print("- 2 -| DB List ")
-		print("- 3 -| Remove DB ")
-		print("- 4 -| Create new DB ")
-		print("- 5 -| Close ")
-		print("")
-		mm_select = input("- Valinta - |")
+		self.add_database_name = input("Name of database to Create: ")
+		#ADD Functionality here.
 		self.os_fix()
-		return int(mm_select)
 
 #Code:
 gui=gui()
 
-while True:
+mm = True
+while mm == True:
 	mm_select = gui.main_menu()
 	if mm_select == 1: #Connect to existing DB.
 		gui.ask_mysql_server_and_db_name()
-		while True:
+		db_m = True
+		while db_m == True:
 			dbm_select = gui.db_menu()
 			if dbm_select == 1: #Alter DB
-				while True:
+				alt_db = True
+				while alt_db == True:
 					adb_select = gui.alter_db()
 					if adb_select == 1: #Add table.
 						gui.add_table()
 					if adb_select == 2: #Add column.
-						gui.add_table()
+						gui.add_column()
 					if adb_select == 3: #Remove table.
 						gui.remove_table()
 					if adb_select == 4: #Remove column.
 						gui.remove_column()
 					if adb_select == 5: #Close alter db.
-						break
+						alt_db = False
 			if dbm_select == 2: #DB list.
 				gui.db_list()
 			if dbm_select == 3: #Remove DB.
@@ -151,18 +156,13 @@ while True:
 			if dbm_select == 4: #Create new DB_Menu.
 				gui.new_db_name()
 			if dbm_select == 5: #Close DB_Menu.
-				break
+				db_m = False
 	if mm_select == 2: #Create new DB.
 		gui.ask_mysql_server()
 		gui.new_db_name()
-		#in progress (infite loop)
 	if mm_select == 3: #DB List.
 		gui.db_list()
 	if mm_select == 4: #Remove DB.
 		gui.remove_db()
 	if mm_select == 5: #Close application.
-		break
-
-
-
-
+		mm = False
