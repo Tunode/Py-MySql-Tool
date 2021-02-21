@@ -1,10 +1,11 @@
 #Imports:
-import mysqltool1
-import gui
+from mysqltool1 import mysql_tool
+from  mysqltool1_gui import  gui
 
 #Variables--
 
-gui = gui.gui()
+gui = gui()
+sql = mysql_tool()
 mm=True
 
 #Code--
@@ -12,7 +13,7 @@ mm=True
 while mm:
 	mm_select = gui.main_menu()
 	if mm_select == "1": #Connect to existing DB.
-		gui.ask_mysql_server_and_db_name()
+		sql.db_connector(gui.ask_mysql_server_and_db_name())
 		db_m = True
 		while db_m == True:
 			dbm_select = gui.db_menu()
@@ -21,9 +22,9 @@ while mm:
 				while alt_db == True:
 					adb_select = gui.alter_db()
 					if adb_select == "1": #Add table.
-						gui.add_table()
+						sql.gen_table(gui.add_table())
 					if adb_select == "2": #Add column.
-						gui.add_column()
+						sql.add_column(gui.add_column())
 					if adb_select == "3": #Remove table.
 						gui.remove_table()
 					if adb_select == "4": #Remove column.
@@ -31,7 +32,7 @@ while mm:
 					if adb_select == "5": #Close alter db.
 						alt_db = False
 			if dbm_select == "2": #DB list.
-				gui.db_list()
+				gui.db_list(sql.show_databases())
 			if dbm_select == "3": #Remove DB.
 				gui.remove_db()
 			if dbm_select == "4": #Create new DB_Menu.
@@ -39,13 +40,14 @@ while mm:
 			if dbm_select == "5": #Close DB_Menu.
 				db_m = False
 	if mm_select == "2": #Create new DB.
-		gui.ask_mysql_server()
-		gui.new_db_name()
+		sql.db_connector_new(gui.ask_mysql_server())
+		sql.gen_db(gui.new_db_name())
 	if mm_select == "3": #DB List.
-		gui.db_list()
+		gui.db_list(sql.show_databases())
 	if mm_select == "4": #Remove DB.
 		gui.remove_db()
 	if mm_select == "5": #Close application.
+		sql.close_connection()
 		mm = False
 	else:
 		pass

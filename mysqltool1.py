@@ -2,14 +2,21 @@ import mysql.connector
 
 class mysql_tool:
 
-	def db_connector_new(self, host_ip, db_username, db_passwd):#Connects mysql without DB name: (this is for gen_db functionality) -> done
+	def db_connector_new(self, conn_new_data):#Connects mysql without DB name: (this is for gen_db functionality) -> done
+		host_ip = conn_new_data["sql_ip"]
+		db_username = conn_new_data["sql_username"]
+		db_passwd = conn_new_data["sql_password"]
 		self.DB = mysql.connector.connect(
 			host = host_ip,
 			user = db_username,
 			passwd = db_passwd
 			)
 
-	def db_connector(self, host_ip, db_username, db_passwd, db_name):#Connetcs with excisting DB -> Done
+	def db_connector(self, conn_to_db):#Connetcs with excisting DB -> Done
+		host_ip = conn_to_db["sql_ip"]
+		db_username = conn_to_db["sql_username"]
+		db_passwd = conn_to_db["sql_password"]
+		db_name = conn_to_db["sql_database"]
 		self.DB = mysql.connector.connect(
 			host = host_ip,
 			user = db_username,
@@ -21,32 +28,24 @@ class mysql_tool:
 		self.DB.close()
 
 	def gen_db(self, dbname): #Create Database -> Done
-		self.db_connector_new()
 		DBCursor = self.DB.cursor()
 		DBCursor.execute("CREATE DATABASE "+dbname)
-		self.close_connection()
 
 	def gen_table(self, tablename): #Create Table with DataID column -> Done
-		self.db_connector()
 		DBCursor = self.DB.cursor()
 		DBCursor.execute("CREATE TABLE IF NOT EXISTS "+ tablename +"(dataID int PRIMARY KEY AUTO_INCREMENT)")
-		self.close_connection()
 
-	def add_column(self, table_name, column_name): #Add Column in selected exsisting Table. -> Done
-		self.db_connector()
+	def add_column(self, add_column_data): #Add Column in selected exsisting Table. -> Done
+		table_name = add_column_data["sql_table_to_conn"]
+		column_name = add_column_data["sql_new_column"]
 		DBCursor = self.DB.cursor()
-		#DBCursor.execute("CREATE TABLE users (name varchar(255)))")
 		DBCursor.execute("ALTER TABLE " + " " + table_name + " ADD " "(" + column_name + " VARCHAR(255))")
-		self.close_connection()
 
 	def show_databases(self): #Prints list of databases in MYSQL server. -> Working.
-		self.db_connector()
 		DBCursor = self.DB.cursor()
 		DBCursor.execute("SHOW DATABASES")
 		l = DBCursor.fetchall()
-		l = [ i[0] for i in l ]
-		print(l)
-		self.close_connection()
+		return l
 
 	def delete_db(self, database_name): #Simply removes DB from MYSQL server -> Done
 		self.db_connector()

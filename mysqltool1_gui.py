@@ -1,4 +1,6 @@
 import os
+import time
+import mysqltool1
 
 class gui:
 
@@ -25,22 +27,33 @@ class gui:
 		self.os_fix()
 		print("-- MYSQL_TOOL_0.2 --")
 		print("")
-		self.hostip = input("MySQL_IP: ")
-		self.username = input("MySQL_Ùsername: ")
-		self.passwd = input("MySQL_Password: ")
-		#ADD Functionality here.
+		hostip = input("MySQL_IP: ")
+		username = input("MySQL_Ùsername: ")
+		passwd = input("MySQL_Password: ")
+		mysql_loggin_data ={
+			"sql_ip": hostip,
+			"sql_username": username,
+			"sql_password": passwd
+		}
 		self.os_fix()
+		return mysql_loggin_data
 		
 	def ask_mysql_server_and_db_name(self): #Ask mysql server loggin details + db name to connect.
 		self.os_fix()
 		print("-- MYSQL_TOOL_0.2 --")
 		print("")
-		self.hostip = input("MySQL_IP: ")
-		self.username = input("MySQL_Ùsername: ")
-		self.passwd = input("MySQL_Password: ")
-		self.db_name = input("MySQL_DB_Name: ")
-		#ADD Functionality here.
+		hostip = input("MySQL_IP: ")
+		username = input("MySQL_Ùsername: ")
+		passwd = input("MySQL_Password: ")
+		db_name = input("MySQL_DB_Name: ")
+		mysql_loggin_data ={
+			"sql_ip": hostip,
+			"sql_username": username,
+			"sql_password": passwd,
+			"sql_database": db_name
+		}
 		self.os_fix()
+		return mysql_loggin_data
 
 	def db_menu(self): # Prints submenu when connected to database.
 		self.os_fix()
@@ -73,30 +86,37 @@ class gui:
 	def db_list(self, db_list):#Prints text wiew for lists of databases in mysql server.
 		print("-- MYSQL_TOOL_0.2 --")
 		print("")
-		print("DB List:"+db_list)
+		print("DB List:")
+		db_list = [ i[0] for i in db_list ]
+		print(db_list)
+		time.sleep(5)
 		self.os_fix() 
 
 	def remove_db(self): #Ask from user what is name for database to remove.
 		print("-- MYSQL_TOOL_0.2 --")
 		print("")
 		self.remove_db_name = input("Name of database to remove: ")
+		return self.remove_db_name
 		self.os_fix()
-		return remove_db_name 
 
 	def add_table(self): #Asks from user what name wanted to new table.
 		print("-- MYSQL_TOOL_0.2 --")
 		print("")
 		self.add_table_name = input("Name of table to add: ")
-		#ADD Functionality here.
+		return self.add_table_name
 		self.os_fix()
-		return add_table_name
 
 	def add_column(self): #Asks from user what name wanted to new column.
 		print("-- MYSQL_TOOL_0.2 --")
 		print("")
-		self.add_column_name = input("Name of column to add: ")
+		add_column_name = input("Name of column to add: ")
+		table_to_conn = input("Name of table to add column: ")
+		add_column_data ={
+			"sql_new_column": add_column_name,
+			"sql_table_to_conn": table_to_conn
+		}
 		self.os_fix()
-		return add_column_name
+		return add_column_data
 
 	def remove_table(self): #Asks from user what is name for table to remove.
 		self.os_fix()
@@ -104,7 +124,7 @@ class gui:
 		print("")
 		self.remove_table_name = input("Name of table to remove: ")
 		self.os_fix()
-		return remove_table_name
+		return self.remove_table_name
 
 	def remove_column(self): #Asks from user what is name for column to remove.
 		self.os_fix()
@@ -112,13 +132,13 @@ class gui:
 		print("")
 		self.remove_column_name = input("Name of column to remove: ")
 		self.os_fix()
-		return remove_column_name
+		return self.remove_column_name
 
 	def new_db_name(self): #Asks from user what name wanted for new database.
 		self.os_fix()
 		print("-- MYSQL_TOOL_0.2 --")
 		print("")
-		self.add_database_name = input("Name of database to Create: ")
+		add_database_name = input("Name of database to Create: ")
 		self.os_fix()
 		return add_database_name
 
