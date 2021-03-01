@@ -4,7 +4,7 @@ from  mysqltool1_gui import  gui
 
 #Variables--
 
-gui = gui()
+gui = gui("0.4.5")
 sql = mysql_tool()
 mm=True
 
@@ -13,8 +13,12 @@ mm=True
 while mm:
 	mm_select = gui.main_menu()
 	if mm_select == "1": #Connect to existing DB.
-		sql.db_connector(gui.ask_mysql_server_and_db_name())
-		db_m = True
+		try:
+			sql.db_connector(gui.ask_mysql_server_and_db_name())
+			db_m = True
+		except:
+			gui.message("ERROR: Incorrect logging details.")
+			db_m = False
 		while db_m == True:
 			dbm_select = gui.db_menu()
 			if dbm_select == "1": #Alter DB
@@ -40,14 +44,16 @@ while mm:
 			if dbm_select == "5": #Close DB_Menu.
 				db_m = False
 	if mm_select == "2": #Create new DB.
-		sql.db_connector_new(gui.ask_mysql_server())
-		sql.gen_db(gui.new_db_name())
-	if mm_select == "3": #DB List.
-		gui.db_list(sql.show_databases())
-	if mm_select == "4": #Remove DB.
-		gui.remove_db()
-	if mm_select == "5": #Close application.
-		sql.close_connection()
-		mm = False
+		try:
+			sql.db_connector_new(gui.ask_mysql_server())
+			sql.gen_db(gui.new_db_name())
+		except:
+			gui.message("ERROR: Incorrect logging details.")
+	if mm_select == "3": #Close application.
+		try:
+			sql.close_connection()
+			mm = False
+		except:
+			mm = False
 	else:
 		pass

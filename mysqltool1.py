@@ -48,7 +48,6 @@ class mysql_tool:
 		return l
 
 	def delete_db(self, database_name): #Simply removes DB from MYSQL server -> Done
-		self.db_connector()
 		DBCursor = self.DB.cursor()
 		DBCursor.execute("DROP DATABASE "+database_name)
 		self.close_connection()
