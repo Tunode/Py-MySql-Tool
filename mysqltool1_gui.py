@@ -18,7 +18,8 @@ class gui:
 		print("")
 		print("- 1 -| Connect to existing DB? ")
 		print("- 2 -| Create new DB? ")
-		print("- 3 -| Close ")
+		print("- 3 -| Settings? ")
+		print("- 4 -| Close ")
 		print("")
 		mm_select = input("- Valinta - |")
 		self.os_fix()
@@ -73,6 +74,33 @@ class gui:
 		print("- 2 -| DB List ")
 		print("- 3 -| Remove DB ")
 		print("- 4 -| Create new DB ")
+		print("- 5 -| Close ")
+		print("")
+		mm_select = input("- Valinta - |")
+		self.os_fix()
+		return mm_select
+
+	def settings_menu(self): # Prints submenu when connected to database.
+		self.os_fix()
+
+		hmm=True
+		hmm2=False
+
+		def option_status(option_s):
+			if option_s == True:
+				status = "[X]"
+			if option_s == False:
+				status = "[]"
+			return status
+
+		print(f"-- MYSQL_TOOL_{self.version} --")
+		print("")
+		print(" [] = OFF | [X] = ON ")
+		print("")
+		print(f"- 1 -| Remember last session: {option_status(hmm)} ")
+		print(f"- 2 -| Confirm before leave menu: {option_status(hmm2)} ")
+		print("- 3 -|  ")
+		print("- 4 -|  ")
 		print("- 5 -| Close ")
 		print("")
 		mm_select = input("- Valinta - |")

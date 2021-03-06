@@ -4,7 +4,7 @@ from  mysqltool1_gui import  gui
 
 #Variables--
 
-gui = gui("0.4.5")
+gui = gui("0.5.1")
 sql = mysql_tool()
 mm=True
 
@@ -26,21 +26,42 @@ while mm:
 				while alt_db == True:
 					adb_select = gui.alter_db()
 					if adb_select == "1": #Add table.
-						sql.gen_table(gui.add_table())
+						try:
+							sql.gen_table(gui.add_table())
+						except:
+							gui.message("ERROR: Incorrect input.")
 					if adb_select == "2": #Add column.
-						sql.add_column(gui.add_column())
+						try:
+							sql.add_column(gui.add_column())
+						except:
+							gui.message("ERROR: Incorrect input.")
 					if adb_select == "3": #Remove table.
-						gui.remove_table()
+						try:
+							sql.delete_table(gui.remove_table())
+						except:
+							gui.message("ERROR: Incorrect input.")
 					if adb_select == "4": #Remove column.
-						gui.remove_column()
+						try:
+							sql.delete_column(gui.remove_column())
+						except:
+							gui.message("ERROR: Incorrect input")
 					if adb_select == "5": #Close alter db.
 						alt_db = False
 			if dbm_select == "2": #DB list.
-				gui.db_list(sql.show_databases())
+				try:
+					gui.db_list(sql.show_databases())
+				except:
+					gui.message("ERROR: - - - - - - - - - - - ")
 			if dbm_select == "3": #Remove DB.
-				gui.remove_db()
+				try:
+					sql.delete_db(gui.remove_db())
+				except:
+					gui.message("ERROR: Incorrect input.")
 			if dbm_select == "4": #Create new DB_Menu.
-				gui.new_db_name()
+				try:
+					sql.gen_db(gui.new_db_name())
+				except:
+					gui.message("ERROR: Incorrect input.")
 			if dbm_select == "5": #Close DB_Menu.
 				db_m = False
 	if mm_select == "2": #Create new DB.
@@ -49,7 +70,9 @@ while mm:
 			sql.gen_db(gui.new_db_name())
 		except:
 			gui.message("ERROR: Incorrect logging details.")
-	if mm_select == "3": #Close application.
+	if mm_select == "3": #Open Settings menu.
+		gui.settings_menu()
+	if mm_select == "4": #Close application.
 		try:
 			sql.close_connection()
 			mm = False
