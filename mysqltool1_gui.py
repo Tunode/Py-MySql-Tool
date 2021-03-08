@@ -16,9 +16,9 @@ class gui:
 		self.os_fix()
 		print(f"-- MYSQL_TOOL_{self.version} --")
 		print("")
-		print("- 1 -| Connect to existing DB? ")
-		print("- 2 -| Create new DB? ")
-		print("- 3 -| Settings? ")
+		print("- 1 -| Connect to existing DB ")
+		print("- 2 -| Create new DB ")
+		print("- 3 -| Settings ")
 		print("- 4 -| Close ")
 		print("")
 		mm_select = input("- Valinta - |")
@@ -80,7 +80,7 @@ class gui:
 		self.os_fix()
 		return mm_select
 
-	def settings_menu(self): # Prints submenu when connected to database.
+	def settings_menu(self): # Prints settings.
 		self.os_fix()
 
 		hmm=True
@@ -124,11 +124,13 @@ class gui:
 	def db_list(self, db_list):#Prints text wiew for lists of databases in mysql server.
 		print(f"-- MYSQL_TOOL_{self.version} --")
 		print("")
-		print("DB List:")
-		db_list = [ i[0] for i in db_list ]
-		print(db_list)
+		print("-| DB List: ")
+		for db in db_list:
+			x = 0
+			print(f"-|{db[x]}")
+			x + 1 
 		time.sleep(5)
-		self.os_fix() 
+		self.os_fix()
 
 	def remove_db(self): #Ask from user what is name for database to remove.
 		print(f"-- MYSQL_TOOL_{self.version} --")
