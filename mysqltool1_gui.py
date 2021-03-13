@@ -1,6 +1,7 @@
 import os
 import time
 import mysqltool1
+import json
 
 class gui:
 
@@ -83,25 +84,30 @@ class gui:
 	def settings_menu(self): # Prints settings.
 		self.os_fix()
 
-		hmm=True
-		hmm2=False
+		def load_settings():
+			settings = json.load(open("settings.json"))
+			return settings
 
 		def option_status(option_s):
-			if option_s == True:
+			if option_s == "on":
 				status = "[X]"
-			if option_s == False:
+			if option_s == "off":
 				status = "[]"
 			return status
+
+		settings = load_settings()
+		setting_1 = settings.get("1")
+		setting_2 = settings.get("2")
 
 		print(f"-- MYSQL_TOOL_{self.version} --")
 		print("")
 		print(" [] = OFF | [X] = ON ")
 		print("")
-		print(f"- 1 -| Remember last session: {option_status(hmm)} ")
-		print(f"- 2 -| Confirm before leave menu: {option_status(hmm2)} ")
-		print("- 3 -|  ")
-		print("- 4 -|  ")
-		print("- 5 -| Close ")
+		print(f"- 1 -| Remember last session: {option_status(setting_1)} ")
+		print(f"- 2 -| Confirm before leave menu: {option_status(setting_2)} ")
+		print(f"- 3 -| Empty ")
+		print(f"- 4 -| Empty ")
+		print(f"- 5 -| Close ")
 		print("")
 		mm_select = input("- Valinta - |")
 		self.os_fix()
