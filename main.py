@@ -1,14 +1,36 @@
 #Imports:
 from mysqltool1 import mysql_tool
 from  mysqltool1_gui import  gui
+import json
 
-#Variables--
+#Variables/Functions--
+def save_settings():
+	j = json.dumps(settings)
+	with open("settings.json", "w") as f:
+		f.write(j)
+		f.close()
+
+def load_settings():
+	settings = json.load(open("settings.json"))
+	return settings
 
 gui = gui("0.5.1")
 sql = mysql_tool()
+
+#----
+
 mm=True
+settings = {"1": "off", "2": "off", "3": "off", "4": "off"}
 
 #Code--
+try: #Create settings.jason and add default settings.(if not created allready.)
+	settings_file=open("settings.json", "x")
+	j = json.dumps(settings)
+	with open("settings.json", "w") as f:
+		f.write(j)
+		f.close()
+except:
+	pass
 
 while mm:
 	mm_select = gui.main_menu()
@@ -71,7 +93,47 @@ while mm:
 		except:
 			gui.message("ERROR: Incorrect logging details.")
 	if mm_select == "3": #Open Settings menu.
-		gui.settings_menu()
+		close_sm = True
+		while close_sm:
+			sm_select = gui.settings_menu() #Runs: SettingsMenu UI
+			if sm_select == "1":#Remember last session. (Mysql Server loggin deails)
+				settings= load_settings()
+				value_1 = settings.get("1")
+				if value_1 == "on":
+					settings["1"] = "off"
+					save_settings()
+				if value_1 == "off":
+					settings["1"] = "on"
+					save_settings()
+			if sm_select == "2":#Confim if wish to leave, before close menu.
+				settings= load_settings()
+				value_2 = settings.get("2")
+				if value_2 == "on":
+					settings["2"] = "off"
+					save_settings()
+				if value_2 == "off":
+					settings["2"] = "on"
+					save_settings()
+			if sm_select == "3":#Empty
+				settings= load_settings()
+				value_3 = settings.get("3")
+				if value_3 == "on":
+					settings["3"] = "off"
+					save_settings()
+				if value_3 == "off":
+					settings["3"] = "on"
+					save_settings()
+			if sm_select == "4":#Empty
+				settings= load_settings()
+				value_4 = settings.get("4")
+				if value_4 == "on":
+					settings["4"] = "off"
+					save_settings()
+				if value_4 == "off":
+					settings["4"] = "on"
+					save_settings()
+			if sm_select == "5":#Close SettingsMenu
+				close_sm = False
 	if mm_select == "4": #Close application.
 		try:
 			sql.close_connection()
