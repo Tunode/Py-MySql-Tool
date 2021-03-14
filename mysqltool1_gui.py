@@ -98,6 +98,8 @@ class gui:
 		settings = load_settings()
 		setting_1 = settings.get("1")
 		setting_2 = settings.get("2")
+		setting_3 = settings.get("3")
+		setting_4 = settings.get("4")
 
 		print(f"-- MYSQL_TOOL_{self.version} --")
 		print("")
@@ -105,8 +107,8 @@ class gui:
 		print("")
 		print(f"- 1 -| Remember last session: {option_status(setting_1)} ")
 		print(f"- 2 -| Confirm before leave menu: {option_status(setting_2)} ")
-		print(f"- 3 -| Empty ")
-		print(f"- 4 -| Empty ")
+		print(f"- 3 -| Empty: {option_status(setting_3)} ")
+		print(f"- 4 -| Empty: {option_status(setting_4)} ")
 		print(f"- 5 -| Close ")
 		print("")
 		mm_select = input("- Valinta - |")
@@ -131,6 +133,7 @@ class gui:
 		print(f"-- MYSQL_TOOL_{self.version} --")
 		print("")
 		print("-| DB List: ")
+		print("------------")
 		for db in db_list:
 			x = 0
 			print(f"-|{db[x]}")

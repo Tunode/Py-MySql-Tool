@@ -28,15 +28,44 @@ def load_settings(): #loads settings from settings.jason
 	settings = json.load(open("settings.json"))
 	return settings
 
-gui = gui("0.5.1")
+def load_loggin_details(): #Loads MySQL server loggin details from loggin_details.jason
+	loggin_details = json.load(open("logging_details.json"))
+	return loggin_details
+
+def save_loggin_details(logging_details): #Save alttered logging details to loggin_detail.jason
+	j = json.dumps(logging_details)
+	with open("logging_details.json", "w") as f:
+		f.write(j)
+		f.close()	
+
+def change_logging_details(new_ip, new_sql_username, new_sql_password, new_sql_database): #Loads logging details from jason and replacese's them with new ones and then saves it.
+	logging_details = load_loggin_details()
+	logging_details.update({"sql_ip": f"{new_ip}"})
+	logging_details.update({"sql_username": f"{new_sql_username}"})
+	logging_details.update({"sql_password": f"{new_sql_password}"})
+	logging_details.update({"sql_database": f"{new_sql_database}"})
+	save_(logging_details)
+
+
+gui = gui("0.8.2")
 sql = mysql_tool()
 
 #----
 
 mm=True
 settings = {"1": "off", "2": "off", "3": "off", "4": "off"}
+logging_details ={"sql_ip": "localhost", "sql_username": "root", "sql_password": "root", "sql_database": "db"}
 
 #Code--
+try: #Create loggin logging_details.jason and add default loggin details.(if not created allready.)
+	logging_details_file=open("logging_details.json", "x")
+	j = json.dumps(logging_details)
+	with open("logging_details.json", "w") as f:
+		f.write(j)
+		f.close()
+except:
+	pass
+
 try: #Create settings.jason and add default settings.(if not created allready.)
 	settings_file=open("settings.json", "x")
 	j = json.dumps(settings)
@@ -50,8 +79,14 @@ while mm:
 	mm_select = gui.main_menu()
 	if mm_select == "1": #Connect to existing DB.
 		try:
-			sql.db_connector(gui.ask_mysql_server_and_db_name())
-			db_m = True
+			if check_setting_status("1") == "off":
+				log_details = gui.ask_mysql_server_and_db_name()
+				save_loggin_details(log_details)
+				sql.db_connector(log_details)
+				db_m = True
+			elif check_setting_status("1") == "on":
+				sql.db_connector(load_loggin_details())
+				db_m = True
 		except:
 			gui.message("ERROR: Incorrect logging details.")
 			db_m = False
@@ -102,8 +137,14 @@ while mm:
 				db_m = False
 	if mm_select == "2": #Create new DB.
 		try:
-			sql.db_connector_new(gui.ask_mysql_server())
-			sql.gen_db(gui.new_db_name())
+			if check_setting_status("1") == "off":
+				log_details = gui.ask_mysql_server()
+				save_loggin_details(log_details)
+				sql.db_connector_new(log_details)
+				sql.gen_db(gui.new_db_name())
+			elif check_setting_status("1") == "on":
+				sql.db_connector_new(load_loggin_details())
+				sql.gen_db(gui.new_db_name())
 		except:
 			gui.message("ERROR: Incorrect logging details.")
 	if mm_select == "3": #Open Settings menu.
