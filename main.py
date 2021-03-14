@@ -9,21 +9,22 @@ def check_setting_status(setting_to_check): #Check inputted settings status and 
 	if setting_to_check in settings.keys():
 		return settings.get(setting_to_check)
 
-def change_setting(setting_to_change):
-	if check_setting_status("1") == "on":
-		settings[setting_to_change] = "off"
-		save_settings()
-	elif check_setting_status("1") == "off":
-		settings[setting_to_change] = "on"
-		save_settings()
+def change_setting(setting_to_change): #Changes inputted settings state from "off" to "on" or otherwise.
+	settings = load_settings()
+	if check_setting_status(setting_to_change) == "on":
+		settings.update({f"{setting_to_change}": "off"})
+		save_settings(settings)
+	elif check_setting_status(setting_to_change) == "off":
+		settings.update({f"{setting_to_change}": "on"})
+		save_settings(settings)
 
-def save_settings():
+def save_settings(settings): #saves settings.jason
 	j = json.dumps(settings)
 	with open("settings.json", "w") as f:
 		f.write(j)
 		f.close()
 
-def load_settings():
+def load_settings(): #loads settings from settings.jason
 	settings = json.load(open("settings.json"))
 	return settings
 
@@ -111,13 +112,13 @@ while mm:
 			sm_select = gui.settings_menu() #Runs: SettingsMenu UI
 			if sm_select == "1":#Remember last session. (Mysql Server loggin deails)
 				change_setting(sm_select)
-			if sm_select == "2":#Confim if wish to leave, before close menu.
+			elif sm_select == "2":#Confim if wish to leave, before close menu.
 				change_setting(sm_select)
-			if sm_select == "3":#Empty
+			elif sm_select == "3":#Empty
 				change_setting(sm_select)
-			if sm_select == "4":#Empty
+			elif sm_select == "4":#Empty
 				change_setting(sm_select)
-			if sm_select == "5":#Close SettingsMenu
+			elif sm_select == "5":#Close SettingsMenu
 				close_sm = False
 	if mm_select == "4": #Close application.
 		try:
