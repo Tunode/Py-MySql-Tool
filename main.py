@@ -4,6 +4,19 @@ from  mysqltool1_gui import  gui
 import json
 
 #Variables/Functions--
+def check_setting_status(setting_to_check): #Check inputted settings status and returns on/off.
+	settings=load_settings()
+	if setting_to_check in settings.keys():
+		return settings.get(setting_to_check)
+
+def change_setting(setting_to_change):
+	if check_setting_status("1") == "on":
+		settings[setting_to_change] = "off"
+		save_settings()
+	elif check_setting_status("1") == "off":
+		settings[setting_to_change] = "on"
+		save_settings()
+
 def save_settings():
 	j = json.dumps(settings)
 	with open("settings.json", "w") as f:
@@ -97,41 +110,13 @@ while mm:
 		while close_sm:
 			sm_select = gui.settings_menu() #Runs: SettingsMenu UI
 			if sm_select == "1":#Remember last session. (Mysql Server loggin deails)
-				settings= load_settings()
-				value_1 = settings.get("1")
-				if value_1 == "on":
-					settings["1"] = "off"
-					save_settings()
-				if value_1 == "off":
-					settings["1"] = "on"
-					save_settings()
+				change_setting(sm_select)
 			if sm_select == "2":#Confim if wish to leave, before close menu.
-				settings= load_settings()
-				value_2 = settings.get("2")
-				if value_2 == "on":
-					settings["2"] = "off"
-					save_settings()
-				if value_2 == "off":
-					settings["2"] = "on"
-					save_settings()
+				change_setting(sm_select)
 			if sm_select == "3":#Empty
-				settings= load_settings()
-				value_3 = settings.get("3")
-				if value_3 == "on":
-					settings["3"] = "off"
-					save_settings()
-				if value_3 == "off":
-					settings["3"] = "on"
-					save_settings()
+				change_setting(sm_select)
 			if sm_select == "4":#Empty
-				settings= load_settings()
-				value_4 = settings.get("4")
-				if value_4 == "on":
-					settings["4"] = "off"
-					save_settings()
-				if value_4 == "off":
-					settings["4"] = "on"
-					save_settings()
+				change_setting(sm_select)
 			if sm_select == "5":#Close SettingsMenu
 				close_sm = False
 	if mm_select == "4": #Close application.
