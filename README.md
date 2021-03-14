@@ -7,11 +7,9 @@ MYSQL-Tool-0.6.7
 Basic function's = Done
 Error handling = Done
 Settings = In-progress. (UI = done, but functions inprogress) (setting: 1 = "Remember mysql loggin details", setting: 2 = "ask if user is sure about leaving menu/app"
-
 -------------------------------------------------------------
-
   so far this module can do following MYSQL tasks:
-  (more comming / few is meaby fixed in progress of making text gui)
+  (more comming)
 
    - Ask MYSQL info (through cmd with input)
        - ip (localhost)
