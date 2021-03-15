@@ -107,8 +107,8 @@ class gui:
 		print("")
 		print(f"- 1 -| Remember last session: {option_status(setting_1)} ")
 		print(f"- 2 -| Confirm before leave menu: {option_status(setting_2)} ")
-		print(f"- 3 -| Empty: {option_status(setting_3)} ")
-		print(f"- 4 -| Empty: {option_status(setting_4)} ")
+		print(f"- 3 -| Change Color: {option_status(setting_3)} ")
+		print(f"- 4 -| Advanced Mode: {option_status(setting_4)} ")
 		print(f"- 5 -| Close ")
 		print("")
 		mm_select = input("- Valinta - |")
@@ -191,4 +191,16 @@ class gui:
 		self.os_fix()
 		return add_database_name
 
+	def ask_if_close(self, name_of_menu_to_close): #Asks form user if sure want to close menu.
+		self.os_fix()
+		print(f"-- MYSQL_TOOL_{self.version} --")
+		print(f"-| You sure that you want to close {name_of_menu_to_close}? ")
+		print(f"-| yes / no ")
+		ask_if_close = input("-| Select: ")
+		self.os_fix()
+		return ask_if_close
+
+
+
 #Test Area:
+	

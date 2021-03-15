@@ -155,17 +155,35 @@ while mm:
 				change_setting(sm_select)
 			elif sm_select == "2":#Confim if wish to leave, before close menu.
 				change_setting(sm_select)
-			elif sm_select == "3":#Empty
+			elif sm_select == "3":#Change color for app ui.
 				change_setting(sm_select)
-			elif sm_select == "4":#Empty
+			elif sm_select == "4":#Opens an advanced options menu.
 				change_setting(sm_select)
 			elif sm_select == "5":#Close SettingsMenu
-				close_sm = False
+				if check_setting_status("2") == "on":
+					close_settings = gui.ask_if_close("Settings")
+					if close_settings == "y" or close_settings == "Y" or close_settings == "yes":
+						close_sm = False
+					else:
+						close_sm = True
+				else:
+					close_sm = False
 	if mm_select == "4": #Close application.
-		try:
-			sql.close_connection()
-			mm = False
-		except:
-			mm = False
+		if check_setting_status("2") == "off":
+			try:
+				sql.close_connection()
+				mm = False
+			except:
+				mm = False
+		elif check_setting_status("2") == "on":
+			close_app = gui.ask_if_close("App")
+			if close_app == "y" or close_app == "Y" or close_app == "yes":
+				try:
+					sql.close_connection()
+					mm = False
+				except:
+					mm = False
+			else:
+				mm = True
 	else:
 		pass
