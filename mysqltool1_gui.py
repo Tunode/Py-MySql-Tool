@@ -2,11 +2,23 @@ import os
 import time
 import mysqltool1
 import json
+from mysqltool1 import mysql_tool
+from getpass import getpass
 
 class gui:
 
 	def __init__(self,version):
 		self.version = version
+
+	def ask_loggin_details(self):
+		self.os_fix()
+		print(f"-- MYSQL_TOOL_{self.version} --")
+		print("")
+		password = getpass(prompt="- Password -:")
+		print("")
+		self.os_fix()
+		return password
+
 
 	def os_fix(self): #Changes terminal color to green, Changes terminal title + Clear's Terminal.
 		os.system("color 2")
@@ -26,7 +38,7 @@ class gui:
 		self.os_fix()
 		return mm_select
 
-	def message(self,message): #Prints Main Menu.
+	def message(self,message): #Prints inputted: message.
 		self.os_fix()
 		print(f"-- MYSQL_TOOL_{self.version} --")
 		print("")
@@ -45,7 +57,8 @@ class gui:
 		mysql_loggin_data ={
 			"sql_ip": hostip,
 			"sql_username": username,
-			"sql_password": passwd
+			"sql_password": passwd,
+			"sql_database": "db_name"
 		}
 		self.os_fix()
 		return mysql_loggin_data
@@ -129,6 +142,17 @@ class gui:
 		self.os_fix()
 		return mm_select
 
+	def multiple_DB_menu(self, db_list): #Check's if MySQL server have multiple DB's.
+		print(f"-| Select DB |-")
+		print("")
+		x = 0
+		for idx, db in enumerate(db_list, start=1):
+			print(f"- {idx} -|{db[x]}")
+			x + 1
+		print("")
+		menu_selection=input("Choice: ")
+		return menu_selection 	
+
 	def db_list(self, db_list):#Prints text wiew for lists of databases in mysql server.
 		print(f"-- MYSQL_TOOL_{self.version} --")
 		print("")
@@ -203,4 +227,7 @@ class gui:
 
 
 #Test Area:
-	
+sql = mysql_tool()
+ui = gui("0.9.1.2")
+#sql.db_connector(ui.ask_mysql_server_and_db_name())
+#ui.multiple_DB_menu(sql.show_databases())

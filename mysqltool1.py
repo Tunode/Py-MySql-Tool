@@ -41,7 +41,7 @@ class mysql_tool:
 		DBCursor = self.DB.cursor()
 		DBCursor.execute("ALTER TABLE " + " " + table_name + " ADD " "(" + column_name + " VARCHAR(255))")
 
-	def show_databases(self): #Prints list of databases in MYSQL server. -> Working.
+	def show_databases(self): #Prints list of databases in MYSQL server. -> Done.
 		DBCursor = self.DB.cursor()
 		DBCursor.execute("SHOW DATABASES")
 		l = DBCursor.fetchall()
