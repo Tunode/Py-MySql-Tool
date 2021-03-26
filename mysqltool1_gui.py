@@ -150,8 +150,8 @@ class gui:
 			print(f"- {idx} -|{db[x]}")
 			x + 1
 		print("")
-		menu_selection=input("Choice: ")
-		return menu_selection 	
+		menu_selection= int(input("Choice: ")) - 1
+		return db_list[menu_selection]
 
 	def db_list(self, db_list):#Prints text wiew for lists of databases in mysql server.
 		print(f"-- MYSQL_TOOL_{self.version} --")
@@ -229,5 +229,5 @@ class gui:
 #Test Area:
 sql = mysql_tool()
 ui = gui("0.9.1.2")
-#sql.db_connector(ui.ask_mysql_server_and_db_name())
-#ui.multiple_DB_menu(sql.show_databases())
+sql.db_connector(ui.ask_mysql_server_and_db_name())
+print(ui.multiple_DB_menu(sql.show_databases()))

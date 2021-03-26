@@ -48,7 +48,17 @@ def change_logging_details(new_ip, new_sql_username, new_sql_password, new_sql_d
 	logging_details.update({"sql_database": f"{new_sql_database}"})
 	save_(logging_details)
 
-gui = gui("0.8.2")
+def multiple_DB_slection():
+	db_list = sql.show_databases()
+	if len(db_list) > 1:
+		M_DB_Menu_Selection = gui.multiple_DB_menu()
+		logging_details = load_loggin_details()
+		logging_details.update({"sql_database": f"{M_DB_Menu_Selection}"})
+	else:
+		pass
+
+
+gui = gui("0.8.9")
 sql = mysql_tool()
 
 #----
