@@ -1,4 +1,4 @@
-# Py-MySql-Tool
+# Py-MySql-Tool APP
 This makes you daily python mysql tasks x 10 times easier.
 IN Progress!
 --------------------------------------------------------------
