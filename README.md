@@ -3,11 +3,20 @@ This makes you daily python mysql tasks x 10 times easier.
 IN Progress!
 --------------------------------------------------------------
 
-MYSQL-Tool-0.6.7
-- Basic function's = Done
-- Error handling = Done
-- Settings = In-progress. (UI = done, but functions inprogress) (setting: 1 = "Remember mysql loggin details", setting: 2 = "ask if user is sure about leaving menu/app")
+MYSQL-Tool-0.8.9
+
+Changes to do:
+- Fix bug: where after settings app asks pass again.
+- Fix bug: "error after removing db from db list ( add functionality to reconnet after db deleted to solve problem )
+- Add Accountmangament + loggin Username's
+- Add DB selector to main code from UI to select db to connect when alttering db
+- Rework stuckture of menu with db options and add meaby add db selection in alttering menu too
+- Add functionality see what db is connected atm when alttering db
+- Add functionality see tables and columns in alter db menu (rework whole look of menu)
+- Settings = In-progress. (Finish) 
+- Error handling = need's to be reworked. (meaby advanced option in menu to see more detailled error's for advanced user)
 - 
+
 -------------------------------------------------------------
   so far this module can do following MYSQL tasks:
   (more comming)
