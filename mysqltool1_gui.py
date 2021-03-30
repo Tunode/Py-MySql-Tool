@@ -167,12 +167,16 @@ class gui:
 	def add_table(self): #Asks from user what name wanted to new table.
 		print(f"-- MYSQL_TOOL_{self.version} --")
 		print("")
+		print("-| To return, leave selection blank ")
+		print("")
 		self.add_table_name = input("-| Name of table to add: ")
 		return self.add_table_name
 		self.os_fix()
 
 	def add_column(self): #Asks from user what name wanted to new column.
 		print(f"-- MYSQL_TOOL_{self.version} --")
+		print("")
+		print("-| To return, leave selection blank ")
 		print("")
 		add_column_name = input("-| Name of column to add: ")
 		table_to_conn = input("-| Name of table to add column: ")
@@ -187,6 +191,8 @@ class gui:
 		self.os_fix()
 		print(f"-- MYSQL_TOOL_{self.version} --")
 		print("")
+		print("-| To return, leave selection blank ")
+		print("")
 		self.remove_table_name = input("-| Name of table to remove: ")
 		self.os_fix()
 		return self.remove_table_name
@@ -194,6 +200,8 @@ class gui:
 	def remove_column(self): #Asks from user what is name for column to remove.
 		self.os_fix()
 		print(f"-- MYSQL_TOOL_{self.version} --")
+		print("")
+		print("-| To return, leave selection blank ")
 		print("")
 		self.remove_column_name = input("-| Name of column to remove: ")
 		self.os_fix()

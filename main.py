@@ -110,7 +110,7 @@ if password == "":
 					dbm_select = gui.db_menu()
 					if dbm_select == "1": #Open menu to Select database and then opens menu to altter selected database.						
 						multiple_database_menu_selection = multiple_DB_slection(sql.show_databases())
-						if multiple_database_menu_selection == "" or multiple_database_menu_selection == "c" or multiple_database_menu_selection == "C":
+						if multiple_database_menu_selection == "":
 							alt_db = False
 						else:
 							try:
@@ -122,10 +122,14 @@ if password == "":
 							while alt_db == True:
 								adb_select = gui.alter_db()
 								if adb_select == "1": #Add table.
-									try:
-										sql.gen_table(gui.add_table())
-									except:
-										gui.message("ERROR: Incorrect input.")
+									add_table_selection=gui.add_table()
+									if add_table_selection == "":
+										pass
+									else:
+										try:
+											sql.gen_table(add_table_selection)
+										except mysql.connector.Error as err:
+											gui.message(f"ERROR: {err}")
 								if adb_select == "2": #Add column.
 									try:
 										sql.add_column(gui.add_column())
@@ -139,13 +143,13 @@ if password == "":
 								if adb_select == "4": #Remove column.
 									try:
 										sql.delete_column(gui.remove_column())
-									except:
-										gui.message("ERROR: Incorrect input")
+									except mysql.connector.Error as err:
+										gui.message(f"ERROR: {err}")
 								if adb_select == "5": #Close alter database menu.
 									alt_db = False
 					if dbm_select == "2": #Remove DB.
 						remove_database_selection = gui.remove_db(sql.show_databases())
-						if remove_database_selection == "" or remove_database_selection == "c" or remove_database_selection == "C":
+						if remove_database_selection == "":
 							pass
 						else:
 							try:
@@ -156,7 +160,7 @@ if password == "":
 								gui.message(f"ERROR: {err}")
 					if dbm_select == "3": #Create new DB_Menu.
 						create_database_selection = gui.new_db_name()
-						if create_database_selection == "" or create_database_selection == "c" or create_database_selection == "C":
+						if create_database_selection == "":
 							pass
 						else:
 							try:
