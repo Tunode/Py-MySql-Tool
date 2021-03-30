@@ -98,10 +98,10 @@ if password == "":
 					if check_setting_status("1") == "off":
 						log_details = gui.ask_mysql_server()
 						save_loggin_details(log_details)
-						sql.db_connector(log_details)
+						sql.db_connector_new(log_details)
 						db_m = True
 					elif check_setting_status("1") == "on":
-						sql.db_connector(load_loggin_details())
+						sql.db_connector_new(load_loggin_details())
 						db_m = True
 				except mysql.connector.Error as err:
 					gui.message(f"ERROR: {err}")
@@ -150,6 +150,8 @@ if password == "":
 						else:
 							try:
 								sql.delete_db(remove_database_selection)
+								sql.close_connection()
+								sql.db_connector_new(load_loggin_details())
 							except mysql.connector.Error as err:
 								gui.message(f"ERROR: {err}")
 					if dbm_select == "3": #Create new DB_Menu.
