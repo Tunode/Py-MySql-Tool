@@ -6,8 +6,6 @@ IN Progress!
 MYSQL-Tool-0.8.9
 
 Changes to do:
-- Fix bug: "error after removing db from db list ( add functionality to reconnet after db deleted to solve problem )
-- Add Accountmangament + loggin Username's
 - Add functionality see tables and columns in alter table and column menu (rework whole look of menu)
 - Settings = In-progress. 
 - Error handling = need's to be reworked. (meaby advanced option in menu to see more detailled error's for advanced user)
