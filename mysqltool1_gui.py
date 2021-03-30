@@ -137,11 +137,16 @@ class gui:
 			print(f"- {idx} -|{db[x]}")
 			x + 1
 		print("")
-		menu_selection= int(input("-| Select: ")) - 1
-		x = db_list[menu_selection]  
-		y = len(str(x))
-		z = y - 3
-		return str(x)[2:z]
+		print("-| To return, leave selection blank ")	
+		print("")
+		menu_selection = input("-| Select: ") 
+		if menu_selection.isdigit():
+			x = db_list[int(menu_selection)-1]
+			y = len(str(x))
+			z = y - 3
+			return str(x)[2:z]
+		else:
+			return menu_selection
 
 	def remove_db(self, db_list): #Ask from user what is name for database to remove.
 		print(f"-- MYSQL_TOOL_{self.version} --")
@@ -153,7 +158,7 @@ class gui:
 			print(f"-|{db[x]}")
 			x + 1
 		print("")
-		print("-| Cancel with: c ")
+		print("-| To return, leave selection blank ")
 		print("")
 		self.remove_db_name = input("-| Name of database to remove: ")
 		return self.remove_db_name
@@ -197,6 +202,8 @@ class gui:
 	def new_db_name(self): #Asks from user what name wanted for new database.
 		self.os_fix()
 		print(f"-- MYSQL_TOOL_{self.version} --")
+		print("")
+		print("-| To return, leave selection blank ")
 		print("")
 		add_database_name = input("-| Name of database to create: ")
 		self.os_fix()

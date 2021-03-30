@@ -51,10 +51,13 @@ def change_logging_details(new_ip, new_sql_username, new_sql_password, new_sql_d
 def multiple_DB_slection(db_list):
 	if len(db_list) > 1:
 		M_DB_Menu_Selection = gui.multiple_DB_menu(db_list)
-		logging_details = load_loggin_details()
-		logging_details.update({"sql_database": f"{M_DB_Menu_Selection}"})
-		save_loggin_details(logging_details)
-		return logging_details
+		if M_DB_Menu_Selection == "" or M_DB_Menu_Selection == "c" or M_DB_Menu_Selection == "C":
+			return M_DB_Menu_Selection
+		else:
+			logging_details = load_loggin_details()
+			logging_details.update({"sql_database": f"{M_DB_Menu_Selection}"})
+			save_loggin_details(logging_details)
+			return logging_details
 	else:
 		pass
 
@@ -87,7 +90,7 @@ except:
 	pass
 
 password = gui.ask_loggin_details()
-if password == "tuno":
+if password == "":
 	while mm == True:
 		mm_select = gui.main_menu()
 		if mm_select == "1": #Connect to MySql Server.
@@ -106,42 +109,58 @@ if password == "tuno":
 				while db_m == True:
 					dbm_select = gui.db_menu()
 					if dbm_select == "1": #Open menu to Select database and then opens menu to altter selected database.						
-						sql.db_connector(multiple_DB_slection(sql.show_databases()))
-						alt_db = True
-						while alt_db == True:
-							adb_select = gui.alter_db()
-							if adb_select == "1": #Add table.
-								try:
-									sql.gen_table(gui.add_table())
-								except:
-									gui.message("ERROR: Incorrect input.")
-							if adb_select == "2": #Add column.
-								try:
-									sql.add_column(gui.add_column())
-								except:
-									gui.message("ERROR: Incorrect input.")
-							if adb_select == "3": #Remove table.
-								try:
-									sql.delete_table(gui.remove_table())
-								except:
-									gui.message("ERROR: Incorrect input.")
-							if adb_select == "4": #Remove column.
-								try:
-									sql.delete_column(gui.remove_column())
-								except:
-									gui.message("ERROR: Incorrect input")
-							if adb_select == "5": #Close alter db.
+						multiple_database_menu_selection = multiple_DB_slection(sql.show_databases())
+						if multiple_database_menu_selection == "" or multiple_database_menu_selection == "c" or multiple_database_menu_selection == "C":
+							alt_db = False
+						else:
+							try:
+								sql.db_connector(multiple_database_menu_selection)
+								alt_db = True
+							except mysql.connector.Error as err:
+								gui.message(f"ERROR: {err}")
 								alt_db = False
+							while alt_db == True:
+								adb_select = gui.alter_db()
+								if adb_select == "1": #Add table.
+									try:
+										sql.gen_table(gui.add_table())
+									except:
+										gui.message("ERROR: Incorrect input.")
+								if adb_select == "2": #Add column.
+									try:
+										sql.add_column(gui.add_column())
+									except:
+										gui.message("ERROR: Incorrect input.")
+								if adb_select == "3": #Remove table.
+									try:
+										sql.delete_table(gui.remove_table())
+									except:
+										gui.message("ERROR: Incorrect input.")
+								if adb_select == "4": #Remove column.
+									try:
+										sql.delete_column(gui.remove_column())
+									except:
+										gui.message("ERROR: Incorrect input")
+								if adb_select == "5": #Close alter database menu.
+									alt_db = False
 					if dbm_select == "2": #Remove DB.
-						try:
-							sql.delete_db(gui.remove_db(sql.show_databases()))
-						except:
-							gui.message("ERROR: Incorrect input.")
+						remove_database_selection = gui.remove_db(sql.show_databases())
+						if remove_database_selection == "" or remove_database_selection == "c" or remove_database_selection == "C":
+							pass
+						else:
+							try:
+								sql.delete_db(remove_database_selection)
+							except mysql.connector.Error as err:
+								gui.message(f"ERROR: {err}")
 					if dbm_select == "3": #Create new DB_Menu.
-						try:
-							sql.gen_db(gui.new_db_name())
-						except:
-							gui.message("ERROR: Incorrect input.")
+						create_database_selection = gui.new_db_name()
+						if create_database_selection == "" or create_database_selection == "c" or create_database_selection == "C":
+							pass
+						else:
+							try:
+								sql.gen_db(create_database_selection)
+							except mysql.connector.Error as err:
+								gui.message(f"ERROR: {err}")
 					if dbm_select == "4": #Close DB_Menu.
 						db_m = False
 		if mm_select == "2": #Open Settings menu.
