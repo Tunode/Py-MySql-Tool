@@ -6,16 +6,12 @@ IN Progress!
 MYSQL-Tool-0.8.9
 
 Changes to do:
-- Fix bug: where after settings app asks pass again.
 - Fix bug: "error after removing db from db list ( add functionality to reconnet after db deleted to solve problem )
 - Add Accountmangament + loggin Username's
-- Add DB selector to main code from UI to select db to connect when alttering db
-- Rework stuckture of menu with db options and add meaby add db selection in alttering menu too
-- Add functionality see what db is connected atm when alttering db
-- Add functionality see tables and columns in alter db menu (rework whole look of menu)
-- Settings = In-progress. (Finish) 
+- Add functionality see tables and columns in alter table and column menu (rework whole look of menu)
+- Settings = In-progress. 
 - Error handling = need's to be reworked. (meaby advanced option in menu to see more detailled error's for advanced user)
-- 
+- add functionality to cancel db alterings. (with: typing:c / or (and) just leaving empty)
 
 -------------------------------------------------------------
   so far this module can do following MYSQL tasks:
