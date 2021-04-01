@@ -1,4 +1,5 @@
 import mysql.connector
+import json
 
 class mysql_tool:
 
@@ -46,6 +47,15 @@ class mysql_tool:
 		DBCursor.execute("SHOW DATABASES")
 		l = DBCursor.fetchall()
 		return l
+
+	def show_tables(self,):
+		loggin_details = json.load(open("logging_details.json"))
+		current_database = loggin_details["sql_database"]
+		DBCursor = self.DB.cursor()
+		DBCursor.execute(f"USE {current_database}")
+		DBCursor.execute("SHOW TABLES")
+		tables = DBCursor.fetchall()
+		return tables
 
 	def delete_db(self, database_name): #Simply removes DB from MYSQL server -> Done
 		DBCursor = self.DB.cursor()

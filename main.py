@@ -121,8 +121,8 @@ if password == "":
 								alt_db = False
 							while alt_db == True:
 								adb_select = gui.alter_db()
-								if adb_select == "1": #Add table.
-									add_table_selection=gui.add_table()
+								if adb_select == "1": #Add table
+									add_table_selection=gui.add_table(sql.show_tables())
 									if add_table_selection == "":
 										pass
 									else:
@@ -131,10 +131,14 @@ if password == "":
 										except mysql.connector.Error as err:
 											gui.message(f"ERROR: {err}")
 								if adb_select == "2": #Add column.
-									try:
-										sql.add_column(gui.add_column())
-									except:
-										gui.message("ERROR: Incorrect input.")
+									add_column_selection = gui.add_column()
+									if add_column_selection == "":
+										pass
+									else:
+										try:
+											sql.add_column(add_column_selection)
+										except mysql.connector.Error as err:
+											gui.message(f"ERROR: {err}")
 								if adb_select == "3": #Remove table.
 									try:
 										sql.delete_table(gui.remove_table())

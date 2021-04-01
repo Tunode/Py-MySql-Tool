@@ -164,8 +164,15 @@ class gui:
 		return self.remove_db_name
 		self.os_fix()
 
-	def add_table(self): #Asks from user what name wanted to new table.
+	def add_table(self,table_list): #Asks from user what name wanted to new table.
 		print(f"-- MYSQL_TOOL_{self.version} --")
+		print("")
+		print(f"-| Current tables |-")
+		print("")
+		x = 0
+		for idx, table in enumerate(table_list, start=1):
+			print(f"-| {table[x]} ")
+			x + 1
 		print("")
 		print("-| To return, leave selection blank ")
 		print("")
@@ -179,13 +186,19 @@ class gui:
 		print("-| To return, leave selection blank ")
 		print("")
 		add_column_name = input("-| Name of column to add: ")
-		table_to_conn = input("-| Name of table to add column: ")
-		add_column_data ={
-			"sql_new_column": add_column_name,
-			"sql_table_to_conn": table_to_conn
-		}
-		self.os_fix()
-		return add_column_data
+		if add_column_name == "":
+			return add_column_name
+		else:
+			table_to_conn = input("-| Name of table to add column: ")
+			if table_to_conn == "":
+				return table_to_conn
+			else:
+				add_column_data ={
+					"sql_new_column": add_column_name,
+					"sql_table_to_conn": table_to_conn
+				}
+				self.os_fix()
+				return add_column_data
 
 	def remove_table(self): #Asks from user what is name for table to remove.
 		self.os_fix()
