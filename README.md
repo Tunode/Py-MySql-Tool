@@ -9,8 +9,7 @@ Changes to do:
 - fix remove_column functionality from SQLtool.
 - Add functionality see tables and columns in alter table and column menu (rework whole look of menu)
 - Settings = In-progress. 
-- Error handling = need's to be reworked. (meaby advanced option in menu to see more detailled error's for advanced user)
-- add functionality to cancel db alterings. (with: typing:c / or (and) just leaving empty)
+- Error handling = need's to be reworked. (In-progress.)
 
 -------------------------------------------------------------
   so far this module can do following MYSQL tasks:
