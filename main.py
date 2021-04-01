@@ -71,7 +71,7 @@ settings = {"1": "off", "2": "off", "3": "off", "4": "off"}
 logging_details ={"sql_ip": "localhost", "sql_username": "root", "sql_password": "root", "sql_database": "db"}
 
 #Code--
-try: #Create loggin logging_details.jason and add default loggin details.(if not created allready.)
+try: #Create loggin logging_details.jason and add default loggin details.(if not created all ready.)
 	logging_details_file=open("logging_details.json", "x")
 	j = json.dumps(logging_details)
 	with open("logging_details.json", "w") as f:
@@ -80,7 +80,7 @@ try: #Create loggin logging_details.jason and add default loggin details.(if not
 except:
 	pass
 
-try: #Create settings.jason and add default settings.(if not created allready.)
+try: #Create settings.jason and add default settings.(if not created all ready.)
 	settings_file=open("settings.json", "x")
 	j = json.dumps(settings)
 	with open("settings.json", "w") as f:
@@ -131,7 +131,7 @@ if password == "":
 										except mysql.connector.Error as err:
 											gui.message(f"ERROR: {err}")
 								if adb_select == "2": #Add column.
-									add_column_selection = gui.add_column()
+									add_column_selection = gui.add_column(sql.show_tables())
 									if add_column_selection == "":
 										pass
 									else:

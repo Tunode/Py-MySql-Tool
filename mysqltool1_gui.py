@@ -9,6 +9,7 @@ class gui:
 
 	def __init__(self,version):
 		self.version = version
+		self.sql = mysql_tool()
 
 	def ask_loggin_details(self):
 		self.os_fix()
@@ -130,12 +131,14 @@ class gui:
 	def multiple_DB_menu(self, db_list): #Check's if MySQL server have multiple DB's.
 		print(f"-- MYSQL_TOOL_{self.version} --")
 		print("")
-		print(f"-| Select DB |-")
-		print("")
+		message=(f"-| Select DB |-")
+		print(message)
+		print("-"*len(message))
 		x = 0
 		for idx, db in enumerate(db_list, start=1):
 			print(f"- {idx} -|{db[x]}")
 			x + 1
+		print("-"*len(message))
 		print("")
 		print("-| To return, leave selection blank ")	
 		print("")
@@ -165,33 +168,65 @@ class gui:
 		self.os_fix()
 
 	def add_table(self,table_list): #Asks from user what name wanted to new table.
+		loggin_details = json.load(open("logging_details.json"))
+		current_database_name = loggin_details["sql_database"]	
 		print(f"-- MYSQL_TOOL_{self.version} --")
 		print("")
-		print(f"-| Current tables |-")
-		print("")
+		message=(f"-| Current tables in database: {current_database_name} |-")
+		print(message)
+		print("-"*len(message))
 		x = 0
-		for idx, table in enumerate(table_list, start=1):
+		for table in table_list:
 			print(f"-| {table[x]} ")
 			x + 1
+		print("-"*len(message))
 		print("")
 		print("-| To return, leave selection blank ")
 		print("")
 		self.add_table_name = input("-| Name of table to add: ")
-		return self.add_table_name
 		self.os_fix()
+		return self.add_table_name
 
-	def add_column(self): #Asks from user what name wanted to new column.
+	def add_column(self,table_list): #Asks from user what name wanted to new column.
+		loggin_details = json.load(open("logging_details.json"))
+		current_database_name = loggin_details["sql_database"]
+		self.sql.db_connector_new(loggin_details)
 		print(f"-- MYSQL_TOOL_{self.version} --")
+		print("")
+		message=(f"-| Current tables in database: {current_database_name} |-")
+		print(message)
+		print("-"*len(message))
+		x = 0
+		for table in table_list:
+			print(f"-| {table[x]} ")
+			x + 1
+		print("-"*len(message))
 		print("")
 		print("-| To return, leave selection blank ")
 		print("")
-		add_column_name = input("-| Name of column to add: ")
-		if add_column_name == "":
-			return add_column_name
+		table_to_conn = input("-| Name of table to add column: ")
+		self.os_fix()
+		if table_to_conn == "":
+			return table_to_conn
 		else:
-			table_to_conn = input("-| Name of table to add column: ")
-			if table_to_conn == "":
-				return table_to_conn
+			column_list = self.sql.show_columns(table_to_conn)
+			print(f"-- MYSQL_TOOL_{self.version} --")
+			print("")
+			message=(f"-| Current columns in table: {table_to_conn} in current database of: {current_database_name} |-")
+			print(message)
+			print("-"*len(message))
+			x = 0
+			for column in column_list:
+				print(f"-| {column[x]} ")
+				x + 1
+			print("-"*len(message))
+			print("")
+			print("-| To return, leave selection blank ")
+			print("")
+			self.sql.close_connection()
+			add_column_name = input("-| Name of column to add: ")
+			if add_column_name == "":
+				return add_column_name
 			else:
 				add_column_data ={
 					"sql_new_column": add_column_name,

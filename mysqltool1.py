@@ -57,6 +57,15 @@ class mysql_tool:
 		tables = DBCursor.fetchall()
 		return tables
 
+	def show_columns(self,current_table):
+		loggin_details = json.load(open("logging_details.json"))
+		current_database = loggin_details["sql_database"]
+		DBCursor = self.DB.cursor()
+		DBCursor.execute(f"USE {current_database}")
+		DBCursor.execute(f"SHOW COLUMNS FROM {current_table}")
+		columns = DBCursor.fetchall()
+		return columns
+
 	def delete_db(self, database_name): #Simply removes DB from MYSQL server -> Done
 		DBCursor = self.DB.cursor()
 		DBCursor.execute("DROP DATABASE "+database_name)
