@@ -4,6 +4,7 @@ from  mysqltool1_gui import  gui
 import mysql.connector
 from mysql.connector import errorcode
 import json
+import os
 
 #Variables/Functions--
 def check_setting_status(setting_to_check): #Check inputted settings status and returns on/off.
@@ -19,6 +20,11 @@ def change_setting(setting_to_change): #Changes inputted settings state from "of
 	elif check_setting_status(setting_to_change) == "off":
 		settings.update({f"{setting_to_change}": "on"})
 		save_settings(settings)
+
+def change_color_setting(new_color):
+	settings=load_settings()
+	settings.update({"3": f"{new_color}"})
+	save_settings(settings)
 
 def save_settings(settings): #saves settings.jason
 	j = json.dumps(settings)
@@ -61,11 +67,12 @@ def multiple_DB_slection(db_list):
 	else:
 		pass
 
-gui = gui("0.9.2")
+ui_color = check_setting_status("3")
+gui = gui("0.9.2", ui_color)
 sql = mysql_tool()
 
 #----
-
+change_color = False
 mm=True
 settings = {"1": "off", "2": "off", "3": "off", "4": "off"}
 logging_details ={"sql_ip": "localhost", "sql_username": "root", "sql_password": "root", "sql_database": "db"}
@@ -182,7 +189,14 @@ if password == "":
 					elif sm_select == "2":#Confim if wish to leave, before close menu.
 						change_setting(sm_select)
 					elif sm_select == "3":#Change color for app ui.
-						change_setting(sm_select)
+						new_color = gui.switch_color_menu()
+						if new_color == "":
+							pass
+						else:
+							change_color_setting(new_color)
+							close_sm = False
+							mm = False
+							change_color = True
 					elif sm_select == "4":#Opens an advanced options menu.
 						change_setting(sm_select)
 					elif sm_select == "5":#Close SettingsMenu
@@ -215,4 +229,7 @@ if password == "":
 			pass
 else:
 	gui.message("Incorrect Password.")
-
+if change_color == True:
+	os.system("python main.py")
+else:
+	pass

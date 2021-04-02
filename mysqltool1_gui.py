@@ -7,8 +7,9 @@ from getpass import getpass
 
 class gui:
 
-	def __init__(self,version):
+	def __init__(self,version,color):
 		self.version = version
+		self.color = color
 		self.sql = mysql_tool()
 
 	def ask_loggin_details(self):
@@ -21,7 +22,11 @@ class gui:
 		return password
 
 	def os_fix(self): #Changes terminal color to green, Changes terminal title + Clear's Terminal.
-		os.system("color 2")
+		if self.color == "0":
+			self.status = "color "
+		else:
+			self.status = f"color {self.color}"
+		os.system(f"{self.status}")
 		os.system(f"title MYSQL_TOOL_{self.version}")
 		os.system('cls')
 
@@ -75,12 +80,32 @@ class gui:
 		self.os_fix()
 		return mm_select
 
-	def settings_menu(self): # Prints settings.
+	def switch_color_menu(self):
 		self.os_fix()
+		print(f"-- MYSQL_TOOL_{self.version} --")
+		print("")
+		headline=(f"-| Select color ")
+		print(headline)
+		print("")
+		print("-| Warning if you change color, app will restart it self! ")
+		print("")
+		print(len(headline)*"-")
+		print(f"- 0 -| White ")
+		print(f"- 1 -| Dark blue ")
+		print(f"- 2 -| Dark green (Default)")
+		print(f"- 3 -| Light blue ")
+		print(f"- 4 -| Red ")
+		print(f"- 5 -| Purple ")
+		print(f"- 6 -| Orange ")
+		print(len(headline)*"-")
+		print("")
+		svm_select = input("-| Select: ")
+		self.os_fix()
+		return svm_select
 
-		def load_settings():
-			settings = json.load(open("settings.json"))
-			return settings
+
+
+	def settings_menu(self): # Prints settings.
 
 		def option_status(option_s):
 			if option_s == "on":
@@ -89,19 +114,36 @@ class gui:
 				status = "[]"
 			return status
 
-		settings = load_settings()
+		def color_status(color_s):
+			if color_s == "0":
+				status = "[White]"
+			if color_s == "1":
+				status = "[Dark blue]"
+			if color_s == "2":
+				status = "[Dark green]"
+			if color_s == "3":
+				status = "[Light blue]"
+			if color_s == "4":
+				status = "[Red]"
+			if color_s == "5":
+				status = "[Purple]"
+			if color_s == "6":
+				status = "[Orange]"
+			return status
+
+		self.os_fix()
+		settings = json.load(open("settings.json"))
 		setting_1 = settings.get("1")
 		setting_2 = settings.get("2")
 		setting_3 = settings.get("3")
 		setting_4 = settings.get("4")
-
 		print(f"-- MYSQL_TOOL_{self.version} --")
 		print("")
 		print(" [] = OFF | [X] = ON ")
 		print("")
 		print(f"- 1 -| Remember last session: {option_status(setting_1)} ")
 		print(f"- 2 -| Confirm before leave current menu: {option_status(setting_2)} ")
-		print(f"- 3 -| Change color: {option_status(setting_3)} ")
+		print(f"- 3 -| Change color: {color_status(setting_3)} ")
 		print(f"- 4 -| Advanced mode: {option_status(setting_4)} ")
 		print(f"- 5 -| Close ")
 		print("")
@@ -273,7 +315,6 @@ class gui:
 		ask_if_close = input("-| Select: ")
 		self.os_fix()
 		return ask_if_close
-
 
 '''
 #Test Area:
