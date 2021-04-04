@@ -68,16 +68,17 @@ def multiple_DB_slection(db_list):
 		pass
 
 ui_color = check_setting_status("3")
-gui = gui("0.9.2", ui_color)
+gui = gui("0.9.5", ui_color)
 sql = mysql_tool()
 
 #----
 change_color = False
 mm=True
-settings = {"1": "off", "2": "off", "3": "off", "4": "off"}
-logging_details ={"sql_ip": "localhost", "sql_username": "root", "sql_password": "root", "sql_database": "db"}
+settings = {"1": "off", "2": "off", "3": "2", "4": "off"}
+logging_details = {"sql_ip": "localhost", "sql_username": "root", "sql_password": "root", "sql_database": "db"}
 
 #Code--
+
 try: #Create loggin logging_details.jason and add default loggin details.(if not created all ready.)
 	logging_details_file=open("logging_details.json", "x")
 	j = json.dumps(logging_details)

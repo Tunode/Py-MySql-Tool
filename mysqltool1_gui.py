@@ -48,7 +48,8 @@ class gui:
 		print("")
 		print(f" {message} ")
 		print("")
-		time.sleep(3)
+		input("-| Continue: ")
+		#time.sleep(3)
 		self.os_fix()
 
 	def ask_mysql_server(self): #Ask mysql server loggin details to connect.
