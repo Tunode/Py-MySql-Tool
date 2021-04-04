@@ -103,8 +103,6 @@ class gui:
 		self.os_fix()
 		return svm_select
 
-
-
 	def settings_menu(self): # Prints settings.
 
 		def option_status(option_s):
@@ -181,9 +179,7 @@ class gui:
 			print(f"- {idx} -|{db[x]}")
 			x + 1
 		print("-"*len(message))
-		print("")
 		print("-| To return, leave selection blank ")	
-		print("")
 		menu_selection = input("-| Select: ") 
 		if menu_selection.isdigit():
 			x = db_list[int(menu_selection)-1]
@@ -196,15 +192,15 @@ class gui:
 	def remove_db(self, db_list): #Ask from user what is name for database to remove.
 		print(f"-- MYSQL_TOOL_{self.version} --")
 		print("")
-		print("-| DB List: ")
-		print("")
+		headline=("-| List of current databases: ")
+		print(headline)
+		print(len(headline)*"-")
 		for db in db_list:
 			x = 0
 			print(f"-|{db[x]}")
 			x + 1
-		print("")
+		print(len(headline)*"-")
 		print("-| To return, leave selection blank ")
-		print("")
 		self.remove_db_name = input("-| Name of database to remove: ")
 		return self.remove_db_name
 		self.os_fix()
@@ -222,9 +218,7 @@ class gui:
 			print(f"-| {table[x]} ")
 			x + 1
 		print("-"*len(message))
-		print("")
 		print("-| To return, leave selection blank ")
-		print("")
 		self.add_table_name = input("-| Name of table to add: ")
 		self.os_fix()
 		return self.add_table_name
@@ -243,9 +237,7 @@ class gui:
 			print(f"-| {table[x]} ")
 			x + 1
 		print("-"*len(message))
-		print("")
 		print("-| To return, leave selection blank ")
-		print("")
 		table_to_conn = input("-| Name of table to add column: ")
 		self.os_fix()
 		if table_to_conn == "":
@@ -262,9 +254,7 @@ class gui:
 				print(f"-| {column[x]} ")
 				x + 1
 			print("-"*len(message))
-			print("")
 			print("-| To return, leave selection blank ")
-			print("")
 			self.sql.close_connection()
 			add_column_name = input("-| Name of column to add: ")
 			if add_column_name == "":
@@ -297,12 +287,19 @@ class gui:
 		self.os_fix()
 		return self.remove_column_name
 
-	def new_db_name(self): #Asks from user what name wanted for new database.
+	def add_new_database(self,db_list): #Asks from user what name wanted for new database.
 		self.os_fix()
 		print(f"-- MYSQL_TOOL_{self.version} --")
 		print("")
-		print("-| To return, leave selection blank ")
-		print("")
+		headline=("-| List of current databases: ")
+		print(headline)
+		print(len(headline)*"-")
+		for db in db_list:
+			x = 0
+			print(f"-|{db[x]}")
+			x + 1
+		print(len(headline)*"-")
+		print("-| To return, leave selection blank. ")
 		add_database_name = input("-| Name of database to create: ")
 		self.os_fix()
 		return add_database_name

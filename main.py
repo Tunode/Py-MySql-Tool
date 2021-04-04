@@ -170,7 +170,7 @@ if password == "":
 							except mysql.connector.Error as err:
 								gui.message(f"ERROR: {err}")
 					if dbm_select == "3": #Create new DB_Menu.
-						create_database_selection = gui.new_db_name()
+						create_database_selection = gui.add_new_database(sql.show_databases())
 						if create_database_selection == "":
 							pass
 						else:
