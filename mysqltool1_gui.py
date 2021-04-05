@@ -150,21 +150,46 @@ class gui:
 		self.os_fix()
 		return mm_select
 
-	def alter_db(self): #Show's all DB alltering settings.
-
+	def alter_db_v2(self):
 		loggin_details = json.load(open("logging_details.json"))
 		current_database_name = loggin_details["sql_database"]	
 		self.os_fix()
 		print(f"-- MYSQL_TOOL_{self.version} --")
 		print("")
-		print(f"- Current database: {current_database_name}")
+		headline=(f"-| Current database: {current_database_name} |- ")
+		print(headline)
+		print("-| Select What to altter |- ")
+		print(len(headline)*"-")
+		print("- 1 -| Tables ")
+		print("- 2 -| Columns ")
+		print("- 3 -| Manual Query ")
+		print("- 4 -| Close ")
+		print(len(headline)*"-")
+		mm_select = input("-| Select: ")
+		self.os_fix()
+		return mm_select
+
+	def alter_db(self): #Show's all DB alltering settings.
+		loggin_details = json.load(open("logging_details.json"))
+		current_database_name = loggin_details["sql_database"]	
+		self.os_fix()
+		print(f"-- MYSQL_TOOL_{self.version} --")
 		print("")
-		print("- 1 -| Add table ")
-		print("- 2 -| Add Column ")
-		print("- 3 -| Remove Table ")
-		print("- 4 -| Remove Column ")
-		print("- 5 -| Close ")
-		print("")
+		headline=(f"- Current database: {current_database_name}")
+		print(headline)
+		print(len(headline)*"-")
+		print("-| Table |- ")
+		print("- 1 -| Add ")
+		print("- 2 -| Remove ")
+		print("- 3 -| List ")
+		print(len(headline)*"-")
+		print("-| Column |- ")
+		print("- 4 -| Add ")
+		print("- 5 -| Remove ")
+		print("- 6 -| List ")
+		print(len(headline)*"-")
+		print("- 7 -| Close ")
+		print(len(headline)*"-")
 		mm_select = input("-| Select: ")
 		self.os_fix()
 		return mm_select
@@ -206,6 +231,46 @@ class gui:
 		return self.remove_db_name
 		self.os_fix()
 
+	def altter_tables(self, table_list):
+		loggin_details = json.load(open("logging_details.json"))
+		current_database_name = loggin_details["sql_database"]	
+		print(f"-- MYSQL_TOOL_{self.version} --")
+		print("")
+		message=(f"-| Current tables in database: {current_database_name} |-")
+		print(message)
+		print("-"*len(message))
+		x = 0
+		for table in table_list:
+			print(f"-| {table[x]} ")
+			x + 1
+		print("-"*len(message))
+		print("-| Altter tables |- ")
+		print("- 1 -| Add ")
+		print("- 2 -| Remove ")
+		alter_table_ms=input("-| Select: ")
+		self.os_fix()
+		return alter_table_ms
+
+	def altter_columns(self, table_list):
+		loggin_details = json.load(open("logging_details.json"))
+		current_database_name = loggin_details["sql_database"]	
+		print(f"-- MYSQL_TOOL_{self.version} --")
+		print("")
+		message=(f"-| Current tables in database: {current_database_name} |-")
+		print(message)
+		print("-"*len(message))
+		x = 0
+		for table in table_list:
+			print(f"-| {table[x]} ")
+			x + 1
+		print("-"*len(message))
+		print("-| Altter Columns |- ")
+		print("- 1 -| Add ")
+		print("- 2 -| Remove ")
+		alter_columns_ms=input("-| Select: ")
+		self.os_fix()
+		return alter_columns_ms
+
 	def add_table(self,table_list): #Asks from user what name wanted to new table.
 		loggin_details = json.load(open("logging_details.json"))
 		current_database_name = loggin_details["sql_database"]	
@@ -223,6 +288,24 @@ class gui:
 		self.add_table_name = input("-| Name of table to add: ")
 		self.os_fix()
 		return self.add_table_name
+
+	def remove_table(self,table_list): #Asks from user what name wanted to new table.
+		loggin_details = json.load(open("logging_details.json"))
+		current_database_name = loggin_details["sql_database"]	
+		print(f"-- MYSQL_TOOL_{self.version} --")
+		print("")
+		message=(f"-| Current tables in database: {current_database_name} |-")
+		print(message)
+		print("-"*len(message))
+		x = 0
+		for table in table_list:
+			print(f"-| {table[x]} ")
+			x + 1
+		print("-"*len(message))
+		print("-| To return, leave selection blank ")
+		self.remove_table_name = input("-| Name of table to remove: ")
+		self.os_fix()
+		return self.remove_table_name
 
 	def add_column(self,table_list): #Asks from user what name wanted to new column.
 		loggin_details = json.load(open("logging_details.json"))
@@ -268,25 +351,49 @@ class gui:
 				self.os_fix()
 				return add_column_data
 
-	def remove_table(self): #Asks from user what is name for table to remove.
-		self.os_fix()
+	def remove_column(self,table_list): #Asks from user what is name for column to remove.
+		loggin_details = json.load(open("logging_details.json"))
+		current_database_name = loggin_details["sql_database"]
+		self.sql.db_connector_new(loggin_details)
 		print(f"-- MYSQL_TOOL_{self.version} --")
 		print("")
+		message=(f"-| Current tables in database: {current_database_name} |-")
+		print(message)
+		print("-"*len(message))
+		x = 0
+		for table in table_list:
+			print(f"-| {table[x]} ")
+			x + 1
+		print("-"*len(message))
 		print("-| To return, leave selection blank ")
-		print("")
-		self.remove_table_name = input("-| Name of table to remove: ")
+		table_to_conn = input("-| Name of table from remove column: ")
 		self.os_fix()
-		return self.remove_table_name
-
-	def remove_column(self): #Asks from user what is name for column to remove.
-		self.os_fix()
-		print(f"-- MYSQL_TOOL_{self.version} --")
-		print("")
-		print("-| To return, leave selection blank ")
-		print("")
-		self.remove_column_name = input("-| Name of column to remove: ")
-		self.os_fix()
-		return self.remove_column_name
+		if table_to_conn == "":
+			return table_to_conn
+		else:
+			column_list = self.sql.show_columns(table_to_conn)
+			print(f"-- MYSQL_TOOL_{self.version} --")
+			print("")
+			message=(f"-| Current columns in table: {table_to_conn} in current database of: {current_database_name} |-")
+			print(message)
+			print("-"*len(message))
+			x = 0
+			for column in column_list:
+				print(f"-| {column[x]} ")
+				x + 1
+			print("-"*len(message))
+			print("-| To return, leave selection blank ")
+			self.sql.close_connection()
+			remove_column_name = input("-| Name of column to remove: ")
+			if remove_column_name == "":
+				return remove_column_name
+			else:
+				remove_column_data ={
+					"sql_remove_column": remove_column_name,
+					"sql_table_to_conn": table_to_conn
+				}
+				self.os_fix()
+				return remove_column_data
 
 	def add_new_database(self,db_list): #Asks from user what name wanted for new database.
 		self.os_fix()

@@ -72,16 +72,17 @@ class mysql_tool:
 		self.close_connection()
 
 	def delete_table(self, table_name): #Delete's table from DB you wish. -> Done
-		self.db_connector()
+		loggin_details = json.load(open("logging_details.json"))
+		self.db_connector(loggin_details)
 		DBCursor = self.DB.cursor()
 		DBCursor.execute("DROP TABLE "+table_name)
 		self.close_connection()
 
-	def delete_column(self, table_name, column_name): #Delete column from Table you name in DB of your wish. -> Done
-		self.db_connector()
+	def delete_column(self, delete_column_data): #Delete column from Table you name in DB of your wish. -> Done
+		table_name = delete_column_data["sql_table_to_conn"]
+		column_name = delete_column_data["sql_remove_column"]
 		DBCursor = self.DB.cursor()
 		DBCursor.execute("ALTER TABLE "+table_name+ " DROP COLUMN "+column_name)
-		self.close_connection()#Simple MYSQL module to make daily MYSQL Tasks easier.
 
 #Testing area:
 DBTool = mysql_tool()
