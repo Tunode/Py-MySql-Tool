@@ -151,6 +151,12 @@ class gui:
 		return mm_select
 
 	def alter_db_v2(self):
+
+		settings = json.load(open("settings.json"))
+		if "4" in settings.keys():
+			advanced_mode_status = settings.get("4")
+		else:
+			pass
 		loggin_details = json.load(open("logging_details.json"))
 		current_database_name = loggin_details["sql_database"]	
 		self.os_fix()
@@ -162,8 +168,11 @@ class gui:
 		print(len(headline)*"-")
 		print("- 1 -| Tables ")
 		print("- 2 -| Columns ")
-		print("- 3 -| Manual Query ")
-		print("- 4 -| Close ")
+		if advanced_mode_status == "on":
+			print("- 3 -| Manual Query ")
+			print("- 4 -| Close ")
+		else:
+			print("- 3 -| Close ")
 		print(len(headline)*"-")
 		mm_select = input("-| Select: ")
 		self.os_fix()

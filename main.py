@@ -129,53 +129,98 @@ if password == "":
 								alt_db = False
 							while alt_db == True:
 								adb_select = gui.alter_db_v2()
-								if adb_select == "1": #Table list + options to alter it.
-									try: 
-										alter_tables_selection = gui.altter_tables(sql.show_tables())
-										if alter_tables_selection == "": #Close alter
-											pass
-										if alter_tables_selection == "1": #Add Table
-											add_table_selectino = gui.add_table(sql.show_tables())
-											if add_table_selectino == "":
+								advance_mode_status = check_setting_status("4")
+								if advance_mode_status == "on":
+									if adb_select == "1": #Table list + options to alter it.
+										try: 
+											alter_tables_selection = gui.altter_tables(sql.show_tables())
+											if alter_tables_selection == "": #Close alter
 												pass
-											else:
-												sql.gen_table(add_table_selectino)
-										if alter_tables_selection == "2": #Remove Table
-												remvoe_table_selection = gui.remove_table(sql.show_tables())
-												if remvoe_table_selection == "":
+											if alter_tables_selection == "1": #Add Table
+												add_table_selectino = gui.add_table(sql.show_tables())
+												if add_table_selectino == "":
 													pass
 												else:
-													sql.delete_table(remvoe_table_selection)
-													sql.close_connection()
-													sql.db_connector(load_loggin_details())
-									except mysql.connector.Error as err:
+													sql.gen_table(add_table_selectino)
+											if alter_tables_selection == "2": #Remove Table
+													remvoe_table_selection = gui.remove_table(sql.show_tables())
+													if remvoe_table_selection == "":
+														pass
+													else:
+														sql.delete_table(remvoe_table_selection)
+														sql.close_connection()
+														sql.db_connector(load_loggin_details())
+										except mysql.connector.Error as err:
+												gui.message(f"ERROR: {err}")
+									if adb_select == "2": #Column list + options to alter it.
+										try:
+											alter_columns_selection = gui.altter_columns(sql.show_tables())
+											if alter_columns_selection == "": #Clos alttering columns.
+												pass
+											if alter_columns_selection == "1": #Add Column.
+												add_column_selection = gui.add_column(sql.show_tables())
+												if add_column_selection == "":
+													pass
+												else:
+													sql.add_column(add_column_selection)
+											if alter_columns_selection == "2": #Remove Column.
+												remvoe_column_selection = gui.remove_column(sql.show_tables())
+												if remvoe_column_selection == "":
+													pass
+												else:
+													sql.delete_column(remvoe_column_selection)
+										except mysql.connector.Error as err:
 											gui.message(f"ERROR: {err}")
-								if adb_select == "2": #Column list + options to alter it.
-									try:
-										alter_columns_selection = gui.altter_columns(sql.show_tables())
-										if alter_columns_selection == "": #Clos alttering columns.
-											pass
-										if alter_columns_selection == "1": #Add Column.
-											add_column_selection = gui.add_column(sql.show_tables())
-											if add_column_selection == "":
+									if adb_select == "3": #Manual sql (Advanced)
+										try:
+											gui.message("Not implemented yet.")
+										except mysql.connector.Error as err:
+											gui.message(f"ERROR: {err}")
+									if adb_select == "4": #Close alter database menu.
+										alt_db = False
+								else:
+									if adb_select == "1": #Table list + options to alter it.
+										try: 
+											alter_tables_selection = gui.altter_tables(sql.show_tables())
+											if alter_tables_selection == "": #Close alter
 												pass
-											else:
-												sql.add_column(add_column_selection)
-										if alter_columns_selection == "2": #Remove Column.
-											remvoe_column_selection = gui.remove_column(sql.show_tables())
-											if remvoe_column_selection == "":
+											if alter_tables_selection == "1": #Add Table
+												add_table_selectino = gui.add_table(sql.show_tables())
+												if add_table_selectino == "":
+													pass
+												else:
+													sql.gen_table(add_table_selectino)
+											if alter_tables_selection == "2": #Remove Table
+													remvoe_table_selection = gui.remove_table(sql.show_tables())
+													if remvoe_table_selection == "":
+														pass
+													else:
+														sql.delete_table(remvoe_table_selection)
+														sql.close_connection()
+														sql.db_connector(load_loggin_details())
+										except mysql.connector.Error as err:
+												gui.message(f"ERROR: {err}")
+									if adb_select == "2": #Column list + options to alter it.
+										try:
+											alter_columns_selection = gui.altter_columns(sql.show_tables())
+											if alter_columns_selection == "": #Clos alttering columns.
 												pass
-											else:
-												sql.delete_column(remvoe_column_selection)
-									except mysql.connector.Error as err:
-										gui.message(f"ERROR: {err}")
-								if adb_select == "3": #Manual sql (Advanced)
-									try:
-										gui.message("Not implemented yet.")
-									except mysql.connector.Error as err:
-										gui.message(f"ERROR: {err}")
-								if adb_select == "4": #Close alter database menu.
-									alt_db = False
+											if alter_columns_selection == "1": #Add Column.
+												add_column_selection = gui.add_column(sql.show_tables())
+												if add_column_selection == "":
+													pass
+												else:
+													sql.add_column(add_column_selection)
+											if alter_columns_selection == "2": #Remove Column.
+												remvoe_column_selection = gui.remove_column(sql.show_tables())
+												if remvoe_column_selection == "":
+													pass
+												else:
+													sql.delete_column(remvoe_column_selection)
+										except mysql.connector.Error as err:
+											gui.message(f"ERROR: {err}")
+									if adb_select == "3": #Close alter database menu.
+										alt_db = False
 					if dbm_select == "2": #Remove DB.
 						remove_database_selection = gui.remove_db(sql.show_databases())
 						if remove_database_selection == "":
