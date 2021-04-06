@@ -6,9 +6,7 @@ IN Progress!
 MYSQL-Tool-0.8.9
 
 Changes to do:
-- fix remove_column functionality from SQLtool.
-- Add functionality see tables and columns in alter table and column menu (rework whole look of menu)
-- Settings = In-progress. 
+- Settings = In-progress. 3/4
 - Error handling = need's to be reworked. (In-progress.)
 
 -------------------------------------------------------------
