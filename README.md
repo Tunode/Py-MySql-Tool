@@ -3,12 +3,10 @@ This makes you daily python mysql tasks x 10 times easier.
 IN Progress!
 --------------------------------------------------------------
 
-MYSQL-Tool-0.8.9
+MYSQL-Tool-0.9.5
 
 Changes to do:
-- Settings = In-progress. 3/4
-- Error handling = need's to be reworked. (In-progress.)
-
+- One file edition to pyinstaller(exe), for first release version (v.1)
 -------------------------------------------------------------
   so far this module can do following MYSQL tasks:
   (more comming)
