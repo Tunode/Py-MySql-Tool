@@ -3,10 +3,10 @@ This makes you daily python mysql tasks x 10 times easier.
 IN Progress!
 --------------------------------------------------------------
 
-MYSQL-Tool-0.9.5
+MYSQL-Tool-1.0.1
 
-Changes to do:
-- One file edition to pyinstaller(exe), for first release version (v.1)
+Pre-release: 1.0.1 Is now out: (EXE for windows)
+
 -------------------------------------------------------------
   so far this module can do following MYSQL tasks:
   (more comming)
