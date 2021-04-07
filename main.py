@@ -173,11 +173,22 @@ if password == "":
 											gui.message(f"ERROR: {err}")
 									if adb_select == "3": #Manual sql (Advanced)
 										try:
-											gui.message("Not implemented yet.")
+											manual_query_input = gui.manual_query()
+											if manual_query_input == "":
+												pass
+											else:
+												gui.message(sql.manual_query(manual_query_input))
 										except mysql.connector.Error as err:
 											gui.message(f"ERROR: {err}")
 									if adb_select == "4": #Close alter database menu.
-										alt_db = False
+										if check_setting_status("2") == "on":
+											close_altter_db_menu = gui.ask_if_close("Altter database menu")
+											if close_altter_db_menu == "y" or close_altter_db_menu == "Y" or close_altter_db_menu == "yes":
+												alt_db = False
+											else:
+												alt_db = True
+										else:	
+											alt_db = False
 								else:
 									if adb_select == "1": #Table list + options to alter it.
 										try: 
@@ -220,7 +231,14 @@ if password == "":
 										except mysql.connector.Error as err:
 											gui.message(f"ERROR: {err}")
 									if adb_select == "3": #Close alter database menu.
-										alt_db = False
+										if check_setting_status("2") == "on":
+											close_altter_db_menu = gui.ask_if_close("Altter database menu")
+											if close_altter_db_menu == "y" or close_altter_db_menu == "Y" or close_altter_db_menu == "yes":
+												alt_db = False
+											else:
+												alt_db = True
+										else:	
+											alt_db = False
 					if dbm_select == "2": #Remove DB.
 						remove_database_selection = gui.remove_db(sql.show_databases())
 						if remove_database_selection == "":
@@ -242,6 +260,12 @@ if password == "":
 							except mysql.connector.Error as err:
 								gui.message(f"ERROR: {err}")
 					if dbm_select == "4": #Close DB_Menu.
+						if check_setting_status("2") == "on":
+							close_database_menu = gui.ask_if_close("Database menu")
+							if close_database_menu == "y" or close_database_menu == "Y" or close_database_menu == "yes":
+								db_m = False
+							else:
+								db_m = True
 						db_m = False
 		if mm_select == "2": #Open Settings menu.
 				close_sm = True

@@ -52,6 +52,21 @@ class gui:
 		#time.sleep(3)
 		self.os_fix()
 
+	def manual_query(self):
+		loggin_details = json.load(open("logging_details.json"))
+		current_database_name = loggin_details["sql_database"]	
+		self.os_fix()
+		print(f"-- MYSQL_TOOL_{self.version} --")
+		print("")
+		headline=(f"-| Current database: {current_database_name} |- ")
+		print(headline)
+		print("")
+		print("-| Manual query |- ")
+		manual_query = input("-: ")
+		#time.sleep(3)
+		self.os_fix()
+		return(manual_query)
+
 	def ask_mysql_server(self): #Ask mysql server loggin details to connect.
 		self.os_fix()
 		print(f"-- MYSQL_TOOL_{self.version} --")

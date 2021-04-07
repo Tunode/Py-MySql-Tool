@@ -3,6 +3,10 @@ import json
 
 class mysql_tool:
 
+	def manual_query(self,manual_query):
+		DBCursor = self.DB.cursor()
+		DBCursor.execute(f"{manual_query}")
+
 	def db_connector_new(self, conn_new_data):#Connects mysql without DB name: (this is for gen_db functionality) -> done
 		host_ip = conn_new_data["sql_ip"]
 		db_username = conn_new_data["sql_username"]
