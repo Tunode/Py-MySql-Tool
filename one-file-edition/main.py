@@ -442,7 +442,9 @@ class gui: #UI Handling class.
 			column_list = self.sql.show_columns(table_to_conn)
 			print(f"-- MYSQL_TOOL_{self.version} --")
 			print("")
-			message=(f"-| Current columns in table: {table_to_conn} in current database of: {current_database_name} |-")
+			message2=(f"-| Current database of: {current_database_name} ")
+			message=(f"-| Current columns in table: {table_to_conn} |-")
+			print(message2)
 			print(message)
 			print("-"*len(message))
 			x = 0
@@ -597,8 +599,18 @@ def multiple_DB_slection(db_list):
 #----
 change_color = False
 mm=True
-settings = {"1": "off", "2": "off", "3": "2", "4": "off"}
-logging_details = {"sql_ip": "localhost", "sql_username": "root", "sql_password": "root", "sql_database": "db"}
+settings = {
+"1": "off",
+"2": "off",
+"3": "2",
+"4": "off"
+   }
+logging_details = {
+"sql_ip": "localhost",
+"sql_username": "root",
+"sql_password": "root",
+"sql_database": "db"
+   }
 
 #Code--
 
