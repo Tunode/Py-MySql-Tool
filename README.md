@@ -7,7 +7,7 @@ MYSQL-Tool-1.0.1
 
 Pre-release: 1.0.1 Is now out: (EXE for windows)
 
-( GUi inprogress with: PyQt5 )
+( GUi in progress with: PyQt5 )
 
 -------------------------------------------------------------
   so far this module can do following MYSQL tasks:
