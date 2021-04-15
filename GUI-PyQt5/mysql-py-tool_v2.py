@@ -122,7 +122,7 @@ class Ui_MainWindow(object):
         self.pushButton_2.setFont(font)
         self.pushButton_2.setObjectName("pushButton_2")
         self.gridLayout_3.addWidget(self.pushButton_2, 2, 1, 1, 1)
-        self.pushButton = QtWidgets.QPushButton(self.sub_menu)
+        self.pushButton = QtWidgets.QPushButton(self.sub_menu, clicked= lambda: self.select_database_to_altter())
         font = QtGui.QFont()
         font.setPointSize(20)
         self.pushButton.setFont(font)
@@ -194,7 +194,7 @@ class Ui_MainWindow(object):
         self.pushButton_6.setFont(font)
         self.pushButton_6.setObjectName("pushButton_6")
         self.gridLayout_4.addWidget(self.pushButton_6, 4, 1, 1, 1)
-        self.pushButton_7 = QtWidgets.QPushButton(self.altter_database_menu)
+        self.pushButton_7 = QtWidgets.QPushButton(self.altter_database_menu, clicked= lambda: self.open_altter_database_menu() )  
         font = QtGui.QFont()
         font.setPointSize(20)
         self.pushButton_7.setFont(font)
@@ -273,6 +273,9 @@ class Ui_MainWindow(object):
 
     def open_altter_database_menu(self):
         self.stackedWidget.setCurrentIndex(2)
+
+    def select_database_to_altter(self):
+        self.stackedWidget.setCurrentIndex(3)
 
     def close_app(self):
         sys.exit()
